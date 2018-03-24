@@ -1,0 +1,162 @@
+/**
+ * Nome: com.msprojectreport.view
+ *
+ * Finalidade: Classes de uso comum para a funcionalidade
+ * Data da Criaï¿½ï¿½o: 06/06/2016
+ *
+ */
+package com.msprojectreport.view;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.primefaces.event.FileUploadEvent;
+
+import com.msprojectreport.controller.ReportController;
+import com.msprojectreport.model.ProjectTask;
+
+
+/**
+ * Nome: ReportView Finalidade: Classe criada para.
+ *
+ * @author raphael.soares
+ * @param <ActivityService>
+ * @param <ActivityService>
+ */
+@ManagedBean(name = "reportViewBean")
+@SessionScoped
+public class ReportView<ActivityService> implements Serializable {
+
+	private static final long serialVersionUID = 2857817346584767749L;
+
+	/** Atributo controller. */
+	ReportController controller;
+
+	/** Atributo bar chart. */
+//	HorizontalBarChartModel barChart = new HorizontalBarChartModel();
+
+	/** Atributo task list. */
+	List<ProjectTask> taskList;
+
+	/** Atributo com a lista filtrada */
+	private List<ProjectTask> filteredTaskList;
+
+	/**
+	 * Nome: getTaskList Recupera o valor do atributo 'taskList'.
+	 *
+	 * @return valor do atributo 'taskList'
+	 */
+	public List<ProjectTask> getTaskList() {
+
+		return taskList;
+	}
+
+	/**
+	 * Nome: setTaskList Registra o valor do atributo 'taskList'.
+	 *
+	 * @param taskList
+	 *            valor do atributo task list
+	 */
+	public void setTaskList(List<ProjectTask> taskList) {
+
+		this.taskList = taskList;
+	}
+
+	public List<ProjectTask> getFilteredTaskList() {
+
+		return filteredTaskList;
+	}
+
+	public void setFilteredTaskList(List<ProjectTask> filteredTaskList) {
+		this.filteredTaskList = filteredTaskList;
+	}
+
+	public void handleFileUpload(FileUploadEvent event) {
+		// esta criando uma nova instancia e essa instancia
+		// esta atribuindo pra variavel de instancia message
+		FacesMessage message = new FacesMessage("Succesful", event.getFile()
+				.getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		// esta criando uma nova instancia e essa instancia
+		// esta atribuindo pra variavel de instancia rControl
+		ReportController rControl = new ReportController();
+		taskList = rControl.getTaskList(event.getFile());
+	 }
+
+	public void postProcessXLS(Object document) {
+
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt((int) 0.0d);
+        // posição da coluna "Duração" na planília
+        Integer colunaDuracao = null;
+
+        // altera a largura padrão das colunas
+        sheet.setDefaultColumnWidth(15);
+        // estilo cor da fonte em vermelho
+        HSSFCellStyle cellStyle = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setColor(HSSFColor.RED.index);
+        cellStyle.setFont(font);
+
+        // procura da posição da coluna "Duração" na linha do head
+        Row header = sheet.getRow(0);
+        for(int i = 0 ; i < header.getLastCellNum() ; i++){
+        	if(header.getCell(i).getStringCellValue().equalsIgnoreCase("Duração")){
+        		colunaDuracao = i;
+        		break;
+        	}
+        }
+        {
+        	int linha = -1;
+        	final int COLUNA = 0;
+        	for(Row linhaAtual: sheet) {
+        		linha++;
+        		if(linha == 0) {
+        			continue;
+        		}
+        		Cell cell = linhaAtual.getCell(COLUNA);
+				String value = cell.getStringCellValue();
+        		int begin = value.indexOf('&') + 5;
+        		int end = value.indexOf('$') - 5;
+        		value = value.substring(begin, end);
+        		cell.setCellValue(value);
+        	}
+        }
+
+        // verificação do valor da duração nas linhas, caso seja 0 pintamos de vermelho
+       for(Row linha: sheet){
+    	   if(linha.getCell(colunaDuracao).getStringCellValue().equals("0.0d")){
+    		   pintarCelulas(linha, cellStyle);
+    	   }
+       }
+    }
+
+   private void pintarCelulas(Row linha, HSSFCellStyle cellStyle) {
+	 for(int i=0; i < linha.getPhysicalNumberOfCells();i++) {
+            Cell cell = linha.getCell(i);
+            CellStyle estilo = cellStyle;
+			cell.setCellStyle(estilo);
+	 }
+   }
+
+	public boolean isExibirBotaoExportar() {
+		if(taskList != null && !taskList.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	 }
+  }

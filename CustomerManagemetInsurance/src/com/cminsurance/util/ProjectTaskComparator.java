@@ -1,0 +1,89 @@
+/**
+ * Nome: com.msprojectreport.util
+ * Compilador: JDK 6
+ * Propósito:
+ * Data da Criação: 01/11/2016
+ * Parâmetros de Compilação: -d
+ */
+package com.cminsurance.util;
+
+import java.util.Comparator;
+
+import com.cminsurance.model.ProjectTask;
+
+/**
+ *
+ * <dt><b>Nome:</b><dt> <dd>ProjectTaskComparator.java</dd>
+ * <dt><b>Propósito:</b><dt> <dd>-Insira propósito aqui-</dd>
+ *
+ *
+ * @author pemoreir<br/>
+ * Equipe:
+ * @version  1.0
+ * @see java.lang.Object
+ */
+public class ProjectTaskComparator implements Comparator<ProjectTask> {
+
+	private static final int MAX_SIZE =
+		String.valueOf(Long.MAX_VALUE).length() - 5;
+
+	/**
+	 * <dt><b>Nome:</b><dt> <dd>compare</dd>
+	 *
+	 * @author pemoreir
+	 * @param object1
+	 * @param object2
+	 * @return
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 *
+	 */
+	@Override
+	public int compare(ProjectTask object1, ProjectTask object2) {
+
+		Long id1 = getId(object1);
+		Long id2 = getId(object2);
+		return id1.compareTo(id2);
+	}
+
+	/**
+	 * <dt><b>Nome:</b><dt> <dd>getId</dd>
+	 * <dt><b>Propósito:</b><dt> <dd>-Insira descrição aqui-</dd>
+	 *
+	 * @author pemoreir
+	 * @param object1
+	 * @return
+	 * @see java.lang.Object
+	 *
+	 */
+	private static Long getId(ProjectTask object1) {
+		String thisId = object1.getOutlineNumber();
+		thisId = prepareId(thisId);
+		return Long.parseLong(thisId, 16);
+	}
+
+	/**
+	 * <dt><b>Nome:</b><dt> <dd>prepareId</dd>
+	 * <dt><b>Propósito:</b><dt> <dd>-Insira descrição aqui-</dd>
+	 *
+	 * @author pemoreir
+	 * @param thisId
+	 * @return
+	 * @see java.lang.Object
+	 *
+	 */
+	private static String prepareId(String thisId) {
+		thisId = thisId.replace("10", "a");
+		thisId = thisId.replace("11", "b");
+		thisId = thisId.replace("12", "c");
+		thisId = thisId.replace("13", "d");
+		thisId = thisId.replace("14", "e");
+		thisId = thisId.replace("15", "f");
+		thisId = thisId.replace(".", "");
+		StringBuilder builder = new StringBuilder(thisId);
+		while(builder.length() < MAX_SIZE) {
+			builder.append('0');
+		}
+
+    	return builder.toString();
+	}
+ }

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="layout.xhtml">
+
+
+
+	<ui:define name="header">
+		<ui:include src="header.xhtml" />
+	</ui:define>
+
+	<ui:define name="content">
+		<link rel="stylesheet" href="css/ui.fancytree.css"/>
+		<script type="text/javascript">//<![CDATA[
+
+		var taskMap = {};
+
+		function $id(id) {
+			return document.getElementById(id);
+		}
+
+		function hideTask(childId, parentId) {
+			var parent = $id(parentId);
+			if(parent == null) {
+				// atualização via ajax? (talvez do filtro?)
+				// Bom, vamos ignorar...
+				return;
+			}
+			var childList = taskMap[parentId];
+			if(childList == null || childList == undefined) {
+				childList = [childId];
+				taskMap[parentId] = childList;
+			} else {
+				var t = childList.length;
+				var i = 0;
+				var canAdd = true;
+				for(; i < t; i++) {
+					if(childList[i] == childId) {
+						canAdd = false;
+						break;
+					}
+				}
+				if(canAdd) {
+					childList.push(childId);
+				}
+			}
+			$id(childId).parentNode.parentNode.parentNode.style.display = 'none';
+			parent.setAttribute('open','false');
+			var newSpan = parent.getElementsByTagName('span')[0];
+			if(newSpan != undefined && newSpan != null) {
+				return;
+			}
+			newSpan = document.createElement('span');
+			var childSpan = document.createElement('span');
+			childSpan.className = 'fancytree-expander';
+			newSpan.appendChild(childSpan);
+			newSpan.className = 'fancytree-exp-cl fancytree-ico-cf';
+			childSpan.onclick = function (ev) {
+				toggle(parentId, parent, null);
+			};
+			parent.insertBefore(newSpan, parent.firstChild);
+		}
+
+		function toggle(parentId, parent, forced) {
+			var lista = taskMap[parentId];
+			if(lista == null || lista == undefined || parent == null || parent == undefined) {
+				return;
+			}
+			var attr = parent.getAttribute('open');
+			var status = (forced == null ? attr : forced);
+			if(status == 'false') {
+				parent.setAttribute('open','true');
+			} else {
+				parent.setAttribute('open','false');
+			}
+			var shouldCloseChildren = false;
+			var newDisp = 'none';
+			if(status == 'false') {
+				newDisp = '';
+				var element = $id(parentId).getElementsByTagName('span')[0];
+				if(element != null){
+					element.className = 'fancytree-exp-el fancytree-ico-ef';
+				}
+			} else {
+				shouldCloseChildren = true;
+				$id(parentId).getElementsByTagName('span')[0].className = 'fancytree-exp-cl fancytree-ico-cf';
+			}
+			var t = lista.length;
+			var i = 0;
+			for(; i < t; i++) {
+				var childId = lista[i];
+				var child = $id(childId);
+				if(child != null){
+					child.parentNode.parentNode.parentNode.style.display = newDisp;
+				}
+				if(forced != null || shouldCloseChildren) {
+					toggle(childId, $id(childId), status);
+				}
+			}
+		}
+
+		function showAll(ev) {
+//			toggle('0', $id('0'), 'false');
+        }
+
+		function configureSearch(element) {
+			if(element.addEventListener) {
+				element.addEventListener('keydown', showAll);
+			} else if(element.attachEvent) {
+
+			}
+		}
+
+		$(document).ready(function() {
+			var element = $id('test:table:colNmRecursos:filter');
+			configureSearch(element);
+			element = $id('test:table:colTarefa:filter');
+			configureSearch(element);
+		});
+
+		//]]></script>
+		<h:form id="test" enctype="multipart/form-data">
+
+			<p:outputPanel id="btnExcel">
+				<h:commandLink rendered="#{reportViewBean.isExibirBotaoExportar()}">
+					<img src="images/excel.png" title="Exportar para Excel"
+						style="width: 30px; height: auto; position: absolute; right: 15px; top: 100px;" />
+
+					<p:dataExporter type="xls" target="table" fileName="cronograma" postProcessor="#{reportViewBean.postProcessXLS}"/>
+				</h:commandLink>
+			</p:outputPanel>
+
+			<p:outputPanel>
+				<p:fileUpload
+					fileUploadListener="#{reportViewBean.handleFileUpload}"
+					mode="advanced" dragDropSupport="false"
+					update="" multiple="false"
+					sizeLimit="10000000" allowTypes="/(\.|\/)(mpp)$/"
+					label="Selecionar" uploadLabel="Carregar"
+					oncomplete="location.reload();"
+					cancelLabel="Cancelar">
+				</p:fileUpload>
+
+				<p:growl id="messages" showDetail="true" />
+			</p:outputPanel>
+
+
+			<p:dataTable var="tasks" value="#{reportViewBean.taskList}" filteredValue="#{reportViewBean.filteredTaskList}"
+				style="font-size:12px; font-weight: bold;" id="table" emptyMessage="Nenhum registro encontrado" widgetVar="tableWidget">
+
+
+				<p:column headerText="%Evolução" exportable="false"
+					style="font-size:15px !important; width:30%;">
+
+					<p:progressBar value="#{tasks.percentageComplete}"
+						labelTemplate="Concluído: #{tasks.percentageComplete}"
+						displayOnly="true" style="height: 15px; font-size:12px; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}"/>
+
+					<p:progressBar value="#{tasks.percentagePlanned}"
+						labelTemplate="Planejado: #{tasks.percentagePlanned}"
+						displayOnly="true" style="height: 15px; font-size:12px;  #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}"/>
+
+					<p:progressBar value="#{tasks.percentageWorkComplete}"
+						labelTemplate="Trabalho: #{tasks.percentageWorkComplete}"
+						displayOnly="true" style="height: 15px; font-size:12px;  #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}"/>
+				</p:column>
+
+				<p:column headerText="Tarefa" filterBy="#{tasks.taskName}" filterMatchMode="contains"
+					      style="font-size:17px; width:42%;" filterStyle="width:150px;" id="colTarefa">
+					      <div>
+					      <div id="#{tasks.outlineNumber}"
+					      style="font-size:12px; display:inline !important; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+					      <!-- & --><h:outputText value="#{tasks.taskName}"/><!-- $ --></div>
+					      <script type="text/javascript">//<![CDATA[
+					                if(#{tasks.child}) {
+					                	hideTask('#{tasks.outlineNumber}', '#{tasks.parent}');
+					            			toggle('0', $id('0'), 'false');
+					                }
+					      //]]></script>
+					      </div>
+				</p:column>
+
+                <p:column headerText="Duração" style="width:30%; font-size:17px;">
+					<h:outputText value="#{tasks.duration}" style="font-size:12px; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+				 </h:outputText>
+				</p:column>
+
+				<p:column headerText="Trabalho"
+					style="font-size:17px; !important; width:30%; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+					<h:outputText value="#{tasks.work}"
+						style="font-size:12px; !important; width:90%">
+				 </h:outputText>
+				</p:column>
+
+				<p:column headerText="Data Inicial"
+					style="width:30%; font-size:17px;">
+					<h:outputText value="#{tasks.initialDate}" style="font-size:12px; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+						<f:convertDateTime type="date" pattern="EEE,dd/MM/yyyy "/>
+				 </h:outputText>
+				</p:column>
+
+				<p:column headerText="Data Final" style="width:30%; font-size:17px;">
+					<h:outputText value="#{tasks.finalDate}" style="font-size:12px; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+						<f:convertDateTime type="date" pattern="EEE,dd/MM/yyyy " />
+
+				 </h:outputText>
+				</p:column>
+
+				<p:column headerText="Nomes dos Recursos"
+					filterBy="#{tasks.resourceNames}" filterMatchMode="contains"
+					style="font-size:17px; width:50%" filterStyle="width:150px;" id="colNmRecursos">
+					<h:outputText value="#{tasks.resourceNames}" style="font-size:12px; #{tasks.duration == '0.0d' ? 'color:red' : 'color:'}">
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+
+   </h:form>
+  </ui:define>
+ </ui:composition>
+</html>
