@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+      >
+    <h:body>
+ 
+    	<ui:composition template="/templates/template.xhtml">
+     		<ui:define name="content">
+     			<h:form>
+    			<h3>Cadastro de Clientes</h3>
+    			<h:panelGrid id="panelCustomerData" columns="4" style="padding-bottom:20px">
+    				<h:panelGroup>
+    					<p:outputLabel value="Nome:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="50" />
+    				</h:panelGroup>
+    				<h:panelGroup>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="Endereço:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="50" />
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="Complemento"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="20" />
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="CEP"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="7" />
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="Bairro"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="20" />
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="Cidade"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="20" />
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="Estado"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="2" />
+    				</h:panelGroup>
+    				
+    			</h:panelGrid >
+    			
+    			<h:panelGrid>
+    				<p:fileUpload
+						fileUploadListener="#{reportViewBean.handleFileUpload}"
+						mode="advanced" dragDropSupport="false"
+						update="" multiple="false"
+						sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/"
+						label="Selecionar apólice" uploadLabel="Adicionar"
+						oncomplete="location.reload();"
+						cancelLabel="Cancelar">
+					</p:fileUpload>
+					<p:growl id="messages" showDetail="true" />
+    			</h:panelGrid>
+    			
+    			<p:separator />
+    			
+    			<h:panelGrid style="padding-top:10px; padding-bottom:20px">
+    				<p:treeTable value="#{customerBean.policiesTree}" var="document">
+				        <f:facet name="header">
+				            Apólices
+				        </f:facet>
+				        <p:column headerText="Descrição">
+				            <h:outputText value="#{document.name}" />
+				        </p:column>
+				        <p:column headerText="Size">
+				            <h:outputText value="120 KB" />
+				        </p:column>
+				        <p:column style="width:24px">
+				        	<p:commandLink  title="View Detail" styleClass="ui-icon ui-icon-search">
+				            <!-- p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search"-->
+				                <!--  f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
+				            </p:commandLink>
+				        </p:column>
+			    </p:treeTable>
+    			</h:panelGrid>
+    			
+    			<p:separator />
+    			
+    			<h:panelGrid columns="2" style="padding-top:10px">
+    				<p:commandButton value="Salvar"/>
+    				<p:commandButton value="Cancelar"/>
+    			</h:panelGrid>
+    			</h:form>
+    		</ui:define>
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

@@ -10,12 +10,12 @@
     <ui:composition> 
     	<h:form>
 	    	<div>
-		    	<img src="images/download.jpg" width="200" height="100"/>
+		    	<img src="#{facesContext.externalContext.requestContextPath}/images/download.jpg" width="200" height="100"/>
 	  		</div>
 	  		<p:menubar >
 	  			<p:submenu label="Clientes" icon="ui-icon-contact">
-	  				<p:menuitem value="Cadastrar" url="/customers.xhtml" target=""/>
-	  				<p:menuitem value="Consultar" url="/atividade.xhtml"/>
+	  				<p:menuitem value="Cadastrar" url="/content/addEditCustomers.xhtml" target=""/>
+	  				<p:menuitem value="Consultar" url="/content/atividade.xhtml"/>
 	  			</p:submenu>
 	  		</p:menubar>
     	</h:form>
