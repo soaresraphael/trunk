@@ -12,13 +12,13 @@
     	<ui:composition template="/templates/template.xhtml">
      		<ui:define name="content">
      			<h:form>
-    			<h3>Cadastro de Clientes</h3>
-    			<h:panelGrid id="panelCustomerData" columns="4" style="padding-bottom:20px">
+    			<h3>Detalhar Cliente</h3>
+    			<h:panelGrid id="panelCustomerDetail" columns="4" style="padding-bottom:20px">
     				<h:panelGroup>
     					<p:outputLabel value="Nome:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="50" />
+    					<p:outputLabel size="50" value="#{detailCustomerView.customer.name}"/>
     				</h:panelGroup>
     				<h:panelGroup>
     				</h:panelGroup>
@@ -29,60 +29,47 @@
     					<p:outputLabel value="Endereço:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="50" />
+    					<p:outputLabel size="50" value="#{detailCustomerView.customer.address}"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:outputLabel value="Complemento"/>
+    					<p:outputLabel value="Complemento:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="20" />
-    				</h:panelGroup>
-    				
-    				<h:panelGroup>
-    					<p:outputLabel value="CEP"/>
-    				</h:panelGroup>
-    				<h:panelGroup>
-    					<p:inputText size="7" />
-    				</h:panelGroup>
-    				<h:panelGroup>
-    					<p:outputLabel value="Bairro"/>
-    				</h:panelGroup>
-    				<h:panelGroup>
-    					<p:inputText size="20" />
+    					<p:outputLabel size="20" value="#{detailCustomerView.customer.addressComplement}"/>
     				</h:panelGroup>
     				
     				<h:panelGroup>
-    					<p:outputLabel value="Cidade"/>
+    					<p:outputLabel value="CEP:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="20" />
+    					<p:outputLabel size="7" value="#{detailCustomerView.customer.zipCode}"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:outputLabel value="Estado"/>
+    					<p:outputLabel value="Bairro:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="2" />
+    					<p:outputLabel size="20" />
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="Cidade:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel size="20" value="#{detailCustomerView.customer.city}"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="Estado:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel size="2" value="#{detailCustomerView.customer.state}"/>
     				</h:panelGroup>
     				
     			</h:panelGrid >
     			
     			<p:separator />
     			
-    			<h:panelGrid>
-    				<p:fileUpload
-						fileUploadListener="#{reportViewBean.handleFileUpload}"
-						mode="advanced" dragDropSupport="false"
-						update="" multiple="false"
-						sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/"
-						label="Adicionar apólice" uploadLabel="Enviar"
-						oncomplete="location.reload();"
-						cancelLabel="Cancelar">
-					</p:fileUpload>
-					<p:growl id="messages" showDetail="true" />
-    			</h:panelGrid>
-    			
     			<h:panelGrid style="padding-top:10px; padding-bottom:20px">
-    				<p:treeTable value="#{customerBean.policiesTree}" var="document">
+    				<p:treeTable value="#{detailCustomerView.policiesTree}" var="document">
 				        <f:facet name="header">
 				            Apólices
 				        </f:facet>
@@ -92,20 +79,14 @@
 				        <p:column headerText="Size">
 				            <h:outputText value="120 KB" />
 				        </p:column>
-				        <p:column style="width:24px">
-				        	<p:commandLink  title="View Detail" styleClass="ui-icon ui-icon-search">
-				            <!-- p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search"-->
-				                <!--  f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
-				            </p:commandLink>
-				        </p:column>
 			    </p:treeTable>
     			</h:panelGrid>
     			
     			<p:separator />
     			
     			<h:panelGrid columns="2" style="padding-top:10px">
-    				<p:commandButton value="Salvar"/>
-    				<p:commandButton value="Cancelar"/>
+    				<p:commandButton value="Editar" action="addEditCustomers"/>
+    				<p:commandButton value="Voltar"/>
     			</h:panelGrid>
     			</h:form>
     		</ui:define>

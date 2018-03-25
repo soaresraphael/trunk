@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14619395480120" configfile="/CustomerManagemetInsurance/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="resultado.xhtml" x="122" y="562" id="pf14679816307898" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="main.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="tela.xhtml" id="pf14712667545740" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf14712667545741" inlinks="pf14712667545741" path="/tela.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="atividade.xhtml" id="pf14712667545742" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf14712667545743" inlinks="pf14712667545743" path="/atividade.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="customers.xhtml" id="pf15217688017380" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf15217688017381" inlinks="pf15217688017381" path="/customers.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="tela.xhtml" id="pf14712667545740" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14712667545741" inlinks="pf14712667545741" path="/tela.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="content/detailCustomer.xhtml" id="pf15219922695090" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf15219922695091" inlinks="pf15219922695091" path="/content/detailCustomer.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="content/addEditCustomers.xhtml" id="pf15219922695092" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15219922695093" path="/content/addEditCustomers.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="customers.xhtml" id="pf15219922695094" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15219922695093" path="/customers.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="content/atividade.xhtml" id="pf15219922695095" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf15219922695096" inlinks="pf15219922695096" path="/content/atividade.xhtml"/>
   <links id="pf14712667545741" target="pf14712667545740" source="pf14712667545740" outcome="tela"/>
-  <links id="pf14712667545743" target="pf14712667545742" source="pf14712667545742" outcome="atividade"/>
-  <links id="pf15217688017381" target="pf15217688017380" source="pf15217688017380" outcome="customers"/>
+  <links id="pf15219922695091" target="pf15219922695090" source="pf15219922695090" outcome="atividade"/>
+  <links id="pf15219922695093" target="pf15219922695094" source="pf15219922695092" outcome="addEditCustomers"/>
+  <links id="pf15219922695096" target="pf15219922695095" source="pf15219922695095" outcome="atividade"/>
 </pageflow:Pageflow>
