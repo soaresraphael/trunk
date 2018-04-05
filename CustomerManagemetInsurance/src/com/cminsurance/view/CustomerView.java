@@ -20,7 +20,7 @@ import com.cminsurance.services.EnsurancePoliciesService;
  */
 @ManagedBean (name= "customerBean")
 @SessionScoped
-public class CustomerView {
+public class CustomerView extends DefaultView{
 	
 	private CustomerVO customer;
 	private TreeNode policiesTree;

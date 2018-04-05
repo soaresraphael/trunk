@@ -3,6 +3,7 @@ package com.cminsurance.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +15,7 @@ import com.cminsurance.services.EnsurancePoliciesService;
 
 @ManagedBean (name="detailCustomerView")
 @SessionScoped
-public class DetailCustomerView {
+public class DetailCustomerView extends DefaultView{
 	
 	CustomerVO customer;
 	private TreeNode policiesTree;
@@ -22,6 +23,11 @@ public class DetailCustomerView {
 	private EnsurancePoliciesService service;
 	
 	public DetailCustomerView() {
+		
+	}
+	
+	@PostConstruct
+	public void init() {
 		customer = new CustomerVO();
 		service = new EnsurancePoliciesService();
 		customer.setAddress("Rua Werner Goldberg, 157");

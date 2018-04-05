@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+      >
+    <h:body>
+ 
+    	<ui:composition template="/templates/template.xhtml">
+     		<ui:define name="content">
+     			<h:form>
+    			<h3>Consultar Clientes</h3>
+    			<h:panelGrid id="panelFindCustomer" columns="5" style="padding-bottom:20px">
+    				<h:panelGroup>
+    					<p:outputLabel value="Nome:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="50" value="#{findCustomerView.name}"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="CPF / CNPJ:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="18" value="#{findCustomerView.cpfCnpj}" />
+    				</h:panelGroup>  
+    				<h:panelGrid>
+    					<p:commandButton icon="ui-icon-search" actionListener="#{findCustomerView.findCustomers}" ajax="false"/>
+    				</h:panelGrid>  				
+    			</h:panelGrid >    			
+    			
+    			<p:separator rendered="#{findCustomerView.renderTable}"/>
+    			
+    			
+    			
+    			<h:panelGrid style="padding-top:10px; padding-bottom:20px" rendered="#{findCustomerView.renderTable}">
+    				<p:dataTable var="customer" value="#{findCustomerView.customers}" widgetVar="customerTable"
+                 		emptyMessage="Cliente não encontrado" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="10">
+  
+				        <p:column filterBy="#{customer.id}" headerText="Id"  filterMatchMode="contains" width="10%" filterMaxLength="3">
+				            <h:outputText value="#{customer.id}" />
+				        </p:column>
+ 
+				        <p:column filterBy="#{customer.name}" headerText="Nome" filterMatchMode="contains" filterMaxLength="50">
+				            <h:outputText value="#{customer.name}" />
+				        </p:column>
+				        <p:column style="width:32px;text-align: center">
+             				<p:commandButton  action="#{findCustomerView.detailCustomer}" icon="ui-icon-search" title="Detalhar">
+               					<!-- f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" /> -->
+            				</p:commandButton>
+        				</p:column>
+   					 </p:dataTable>
+    			
+    			
+	    			<p:separator />
+	    			
+	    			<h:panelGrid columns="2" style="padding-top:10px">
+	    				<p:commandButton value="Salvar"/>
+	    				<p:commandButton value="Cancelar" action="#{findCustomerView.backToIndex}"/>
+	    			</h:panelGrid>
+    			</h:panelGrid>
+    			</h:form>
+    		</ui:define>
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>
