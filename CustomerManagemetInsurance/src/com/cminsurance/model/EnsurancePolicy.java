@@ -6,6 +6,8 @@ package com.cminsurance.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +22,13 @@ public class EnsurancePolicy {
 	 	
 	 	@Id
 		@GeneratedValue
-	 	private int id;
+		private int policyId;
 	    private String size;
 	    private String type;
+	    
+	    @ManyToOne
+	    @JoinColumn(name="id")
+		private CustomerVO customer;
 	     
 	    public EnsurancePolicy(String name, String size, String type) {
 	        this.name = name;
@@ -38,12 +44,12 @@ public class EnsurancePolicy {
 			this.name = name;
 		}
 
-		public int getId() {
-			return id;
+		public int getPolicyId() {
+			return policyId;
 		}
 
-		public void setId(int id) {
-			this.id = id;
+		public void setPolicyId(int policyId) {
+			this.policyId = policyId;
 		}
 
 		public String getSize() {
@@ -60,6 +66,14 @@ public class EnsurancePolicy {
 
 		public void setType(String type) {
 			this.type = type;
+		}
+
+		public CustomerVO getCustomer() {
+			return customer;
+		}
+
+		public void setCustomer(CustomerVO customer) {
+			this.customer = customer;
 		}
 	    
 }

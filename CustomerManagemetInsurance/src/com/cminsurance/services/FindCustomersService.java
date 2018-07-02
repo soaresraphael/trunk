@@ -32,7 +32,7 @@ public class FindCustomersService {
 			customer.setCpf("012.345.678-90");
 			customer.setDocument("12.345.567-8");
 			customer.setEmail("raphael.antenorsoares@gmail.com");
-			customer.setId(id);
+			customer.setCustomerId(id);
 			customer.setName("Raphael Antenor Soares");
 			customer.setState("SP");
 			customer.setZipCode("06414025");
@@ -63,7 +63,7 @@ public class FindCustomersService {
 		customer.setCpf(cpf);
 		customer.setDocument("12.345.567-8");
 		customer.setEmail("raphael.antenorsoares@gmail.com");
-		customer.setId(id);
+		customer.setCustomerId(id);
 		customer.setName(customerName);
 		customer.setState("SP");
 		customer.setZipCode("06414025");

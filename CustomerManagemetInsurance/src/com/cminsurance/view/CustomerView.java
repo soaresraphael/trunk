@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.TreeNode;
 
 import com.cminsurance.model.CustomerVO;
+import com.cminsurance.model.EnsurancePolicy;
 import com.cminsurance.services.EnsurancePoliciesService;
 
 /**
@@ -29,7 +30,7 @@ public class CustomerView extends DefaultView{
 	
 	public CustomerView() {
 		customer = new CustomerVO();
-		customer.setEnsurancePolicies(new ArrayList<Object>());
+		customer.setEnsurancePolicies(new ArrayList<EnsurancePolicy>());
 		service = new EnsurancePoliciesService();
 		policiesTree = service.createDocuments();		
 	}

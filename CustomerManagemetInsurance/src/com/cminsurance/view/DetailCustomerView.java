@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.TreeNode;
 
 import com.cminsurance.model.CustomerVO;
+import com.cminsurance.model.EnsurancePolicy;
 import com.cminsurance.services.EnsurancePoliciesService;
 
 @ManagedBean (name="detailCustomerView")
@@ -38,10 +39,10 @@ public class DetailCustomerView extends DefaultView{
 		customer.setDocument("12.345.567-8");
 		customer.setEmail("raphael.antenorsoares@gmail.com");
 		customer.setEnsurancePolicies(getPoliciesList());
-		customer.setId(1l);
+		customer.setCustomerId(1l);
 		customer.setName("Raphael Antenor Soares");
 		customer.setState("SP");
-		customer.setTelephones(getTelephoneList());//TODO
+		//customer.setTelephones(getTelephoneList());//TODO
 		customer.setZipCode("06414025");
 		policiesTree = service.createDocuments();
 	}
@@ -52,7 +53,7 @@ public class DetailCustomerView extends DefaultView{
 		return telephones;
 	}
 
-	private List<Object> getPoliciesList() {
+	private List<EnsurancePolicy> getPoliciesList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

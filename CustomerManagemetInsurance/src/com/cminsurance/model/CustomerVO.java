@@ -2,8 +2,19 @@ package com.cminsurance.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="customer")
 public class CustomerVO {
-	private long id;
+	@Id
+	@GeneratedValue
+	private long customerId;
 	private String name;
 	private String address;
 	private String addressComplement;
@@ -14,19 +25,20 @@ public class CustomerVO {
 	private String cpf;
 	private String document;
 	private String birthDate;
-	private List<String> telephones;
-	private List<Object> ensurancePolicies;
+	//private List<String> telephones;
+	@OneToMany(mappedBy="customer", targetEntity=EnsurancePolicy.class, fetch = FetchType.LAZY)
+	private List<EnsurancePolicy> ensurancePolicies;
 	
 	public CustomerVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public long getId() {
-		return id;
+	public long getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getName() {
@@ -105,23 +117,24 @@ public class CustomerVO {
 		return birthDate;
 	}
 
+	
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-
+	/*
 	public List<String> getTelephones() {
 		return telephones;
 	}
 
 	public void setTelephones(List<String> telephones) {
 		this.telephones = telephones;
-	}
+	}*/
 
-	public List<Object> getEnsurancePolicies() {
+	public List<EnsurancePolicy> getEnsurancePolicies() {
 		return ensurancePolicies;
 	}
 
-	public void setEnsurancePolicies(List<Object> ensurancePolicies) {
+	public void setEnsurancePolicies(List<EnsurancePolicy> ensurancePolicies) {
 		this.ensurancePolicies = ensurancePolicies;
 	}
 	
