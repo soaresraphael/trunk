@@ -16,11 +16,13 @@ public class Agenda {
 	private JTextField txtNome;
 	private JTextField txtTel;
 	private JTextField textValor;
+	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		String test = null;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
