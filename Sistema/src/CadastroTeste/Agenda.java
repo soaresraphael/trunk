@@ -22,7 +22,7 @@ public class Agenda {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		String test = null;
+		String teste = null;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
