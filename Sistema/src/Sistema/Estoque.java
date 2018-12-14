@@ -4,15 +4,18 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +31,7 @@ public class Estoque {
 	private JTextField txtQtdProduto;
 	private JTextField txtValorProduto;
 	private JTextField txtDataEntradaEstoque;
-	private JTextField textField_5;
+	private JTextField txtConsulta;
 	private JTextField txtDataSaidaEstoque;
 	
 	
@@ -138,51 +141,52 @@ public class Estoque {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				File estoque = new File ("estoque.txt");
-			
-						try{
-							FileWriter estq = new FileWriter(estoque);
-							BufferedWriter escrever = new BufferedWriter(estq);
-							
-							escrever.write(txtCodEstoque.getText() + "/n/");
-							escrever.close();
-							estq.close(); 
-							
-							FileReader ler = new FileReader(estoque);
-							BufferedReader lerarq = new BufferedReader (ler);
-							String linha = lerarq.readLine();
-							
-							
-						
-							while(linha !=null) {
-							
-							}
-						}catch(IOException ioe){
-							//ioe.printStackTrace();
-						} 
-				   
-			
-				
-//				String linha = b.readLine();
-//				
-//				while(linha != null) {
-//					FileWriter linha = new 
-//				linha.print(txtCodEstoque.getText() + "/n/");
-//				linha.print(txtProduto.getText() + "/");
-//				linha.print(txtQtdProduto.getText()+"/");
-//				linha.print(txtValorProduto.getText() + "/");
-//				linha.print(txtDataEntradaEstoque.getText() + "/");
-//				linha.print(txtDataSaidaEstoque.getText() + "/");
-//				linha.print("\n");
-//				b.close();
-//				}			
+//				verifica se código já existe
+//				JOptionPane.showMessageDialog(null,"Cód. já existe!");
+//					txtCodEstoque.setText("");
+//		        	txtProduto.setText("");
+//		        	txtQtdProduto.setText("");
+//		        	txtValorProduto.setText("");
+//		        	txtDataEntradaEstoque.setText("");
+//		        	txtDataSaidaEstoque.setText("");
+//					txtCodEstoque.requestFocus();
+								
+				BufferedWriter bw = null;
 
-				
-				
-				
-			}
+		        try {
+		            bw = new BufferedWriter(new FileWriter("estoque.txt", true));
+		            bw.write(txtCodEstoque.getText()+";"+txtProduto.getText()+";"+
+		            		txtQtdProduto.getText()+";"+txtValorProduto.getText()+";"+
+		            		txtDataEntradaEstoque.getText()+";"+txtDataSaidaEstoque.getText()+";");
+		            bw.newLine();
+		            bw.flush();
+		        	JOptionPane.showMessageDialog(null,"Salvo");
+		        	
+		        	txtCodEstoque.setText("");
+		        	txtProduto.setText("");
+		        	txtQtdProduto.setText("");
+		        	txtValorProduto.setText("");
+		        	txtDataEntradaEstoque.setText("");
+		        	txtDataSaidaEstoque.setText("");
+					txtCodEstoque.requestFocus();	
+		         
+		            
+		        } catch (IOException ioe) {
+		            ioe.printStackTrace();
+		        } finally { // always close the file
+		            if (bw != null) {
+		                try {
+		                    bw.close();
+		                } catch (IOException ioe2) {
+		                    // just ignore it
+		                }
+		            }
+		        }
 
-		
+
+		        
+		        
+			}		
 		});
 
 		
@@ -196,6 +200,53 @@ public class Estoque {
 		txtCodEstoque.setColumns(10);
 		
 		JButton btnConsultarEstoque = new JButton("Consultar Estoque");
+		btnConsultarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			        
+				String con = txtConsulta.getText();
+
+
+				if( con == null || "".equals(con) ){
+					JOptionPane.showMessageDialog(null,"Preencher o Campo Consulta");
+				}
+
+				else {			
+					try {  
+													
+			                @SuppressWarnings("resource")
+							BufferedReader reader = new BufferedReader(new FileReader(  
+			                		"estoque.txt"));  
+			                DefaultTableModel modelo = (DefaultTableModel) tabEstoque.getModel();  
+			                modelo.setNumRows(0);  
+			                tabEstoque.setModel(modelo);  
+			                String linha = "";  
+			                while ((linha = reader.readLine()) != null) {  
+			                    modelo.addRow(linha.split(";"));  
+			                }  
+			                txtConsulta.requestFocus();
+			            } catch (IOException e ) {  
+			            	JOptionPane.showMessageDialog(null, "Não Cadastrado");
+			            	txtCodEstoque.setText("");
+				        	txtProduto.setText("");
+				        	txtQtdProduto.setText("");
+				        	txtValorProduto.setText("");
+				        	txtDataEntradaEstoque.setText("");
+				        	txtDataSaidaEstoque.setText("");
+							txtCodEstoque.requestFocus();	
+							
+							//e.printStackTrace();  
+			            }
+				
+				
+		    
+				
+				
+				}
+				
+			}
+		});
+		
 		btnConsultarEstoque.setBounds(466, 16, 193, 29);
 		frame.getContentPane().add(btnConsultarEstoque);
 		
@@ -235,10 +286,10 @@ public class Estoque {
 		txtDataEntradaEstoque.setBounds(127, 137, 208, 26);
 		frame.getContentPane().add(txtDataEntradaEstoque);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(19, 17, 432, 26);
-		frame.getContentPane().add(textField_5);
+		txtConsulta = new JTextField();
+		txtConsulta.setColumns(10);
+		txtConsulta.setBounds(19, 17, 432, 26);
+		frame.getContentPane().add(txtConsulta);
 		
 		JLabel lblDataSada = new JLabel("Data Sa\u00EDda");
 		lblDataSada.setBounds(350, 131, 93, 38);
