@@ -1,41 +1,39 @@
 package vendas;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.VoltarTelaPrincipal;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 public class TelaVendas {
 
 	protected static final String Convert = null;
 	public JFrame frame;
-	private JTable tabVendas;
-	private JTextField txtCliente;
-	private JTextField txtProduto;
-	private JTextField txtQtdProduto;
-	private JTextField txtValorProduto;
-	private JTextField txtDataVenda;
-	private JTextField txtTotalVenda;
-	private JTextField txtCodVenda;
+	static JTable tabVendas;
+	public static JTextField txtCliente;
+	public static JTextField txtProduto;
+	public static JTextField txtQtdProduto;
+	public static JTextField txtValorProduto;
+	public static JTextField txtDataVenda;
+	public static JTextField txtTotalVenda;
+	public static JTextField txtCodVenda;
 	public ActionListener actTelaPrincipal;
+	public ActionListener actTelaVendas;
+	public ActionListener actConsultarVenda;
+	public static  JComboBox<String> Combo = new JComboBox<String>();
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -69,85 +67,17 @@ public class TelaVendas {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNome = new JLabel("Cod. Venda");
-		lblNome.setBounds(174, 11, 93, 38);
+		lblNome.setBounds(34, 11, 93, 38);
 		frame.getContentPane().add(lblNome);
 		
-		JButton btnIncluirVenda = new JButton("Incluir");
-		btnIncluirVenda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				BufferedWriter vp = null;
-
-		        try {
-		            vp = new BufferedWriter(new FileWriter("vendas.txt", true));
-		            vp.write(txtCodVenda.getText()+";"+txtProduto.getText()+";"+
-		            		txtQtdProduto.getText()+";"+txtValorProduto.getText()+";"+
-		            		txtCliente.getText()+";"+txtDataVenda.getText()+";");
-		
-		
-		            vp.newLine();
-		            vp.flush();
-		        	JOptionPane.showMessageDialog(null,"Salvo");
-		        		            
-		        } catch (IOException ioe) {
-		            ioe.printStackTrace();
-		        } finally { // always close the file
-		            if (vp != null) {
-		                try {
-		                    vp.close();
-		                } catch (IOException ioe2) {
-		                    // just ignore it
-		                }
-		            }
-		        }
-				
-		     
-		        
-				//adiciona dados
-				String CodVenda = txtCodVenda.getText().trim();
-				String Cliente = txtCliente.getText().trim();
-				String Produto = txtProduto.getText().trim();
-				String Quantidade = txtQtdProduto.getText().trim();
-				String Valor = txtValorProduto.getText().trim();
-				String DataVenda = txtDataVenda.getText().trim();
-				
-		
-				DefaultTableModel addV = (DefaultTableModel) tabVendas.getModel();
-				addV.addRow(new String[] {CodVenda, Cliente, Produto, Quantidade, Valor, DataVenda});
-
-					
-				txtCodVenda.setText("");
-				txtCliente.setText("");
-				txtProduto.setText("");
-				txtQtdProduto.setText("");
-				txtValorProduto.setText("");
-				//txtDataVenda.setText("");
-					
-				txtCodVenda.requestFocus();
-				
-				
-				   int count= 0;
-					for (int i=0; i<=tabVendas.getRowCount()-1;i++) {
-					count+=Integer.parseInt(tabVendas.getValueAt(i, 4).toString());
-					}
-					txtTotalVenda.setText(String.valueOf(count));
-				
-				
-			}
-		});
-		btnIncluirVenda.setBounds(281, 305, 115, 29);
-		frame.getContentPane().add(btnIncluirVenda);
-		
 		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(424, 305, 115, 29);
+		btnAlterar.setBounds(348, 337, 115, 29);
 		frame.getContentPane().add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(554, 305, 115, 29);
+		btnExcluir.setBounds(218, 337, 115, 29);
 		frame.getContentPane().add(btnExcluir);
-		
-		
-		
+	
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(34, 46, 93, 38);
 		frame.getContentPane().add(lblCliente);
@@ -157,7 +87,7 @@ public class TelaVendas {
 		frame.getContentPane().add(lblProdutos);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(34, 180, 696, 103);
+		scrollPane.setBounds(34, 158, 696, 147);
 		frame.getContentPane().add(scrollPane);
 		
 		tabVendas = new JTable();
@@ -171,82 +101,40 @@ public class TelaVendas {
 		scrollPane.setViewportView(tabVendas);
 		
 		txtCliente = new JTextField();
-		txtCliente.setBounds(174, 50, 429, 26);
+		txtCliente.setBounds(174, 50, 556, 26);
 		frame.getContentPane().add(txtCliente);
 		txtCliente.setColumns(10);
-		
-		JButton btnGravarVenda = new JButton("Gravar");
-		btnGravarVenda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				BufferedWriter vp = null;
-
-		        try {
-		            vp = new BufferedWriter(new FileWriter("vendas.txt", true));
-		            vp.write(txtCodVenda.getText()+";"+txtProduto.getText()+";"+
-		            		txtQtdProduto.getText()+";"+txtValorProduto.getText()+";"+
-		            		txtCliente.getText()+";"+txtDataVenda.getText()+";");
-		          
-		            vp.newLine();
-		            vp.flush();
-		        	JOptionPane.showMessageDialog(null,"Salvo");
-		        	
-		        	txtCodVenda.setText("");
-		        	txtCliente.setText("");
-		        	txtProduto.setText("");
-		        	txtQtdProduto.setText("");
-		        	txtValorProduto.setText("");
-		        	txtTotalVenda.setText("");
-		        	//txtDataVenda.setText("");
-		            
-		        } catch (IOException ioe) {
-		            ioe.printStackTrace();
-		        } finally { // always close the file
-		            if (vp != null) {
-		                try {
-		                    vp.close();
-		                } catch (IOException ioe2) {
-		                    // just ignore it
-		                }
-		            }
-		        }
 	
-			}
-		});
-		btnGravarVenda.setBounds(424, 337, 115, 29);
-		frame.getContentPane().add(btnGravarVenda);
-		
 		txtProduto = new JTextField();
 		txtProduto.setColumns(10);
-		txtProduto.setBounds(174, 83, 429, 26);
+		txtProduto.setBounds(174, 83, 556, 26);
 		frame.getContentPane().add(txtProduto);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(34, 126, 93, 38);
+		lblQuantidade.setBounds(34, 113, 93, 29);
 		frame.getContentPane().add(lblQuantidade);
 		
 		txtQtdProduto = new JTextField();
 		txtQtdProduto.setColumns(10);
-		txtQtdProduto.setBounds(142, 135, 122, 26);
+		txtQtdProduto.setBounds(174, 114, 122, 26);
 		frame.getContentPane().add(txtQtdProduto);
 		
 		txtValorProduto = new JTextField();
 		txtValorProduto.setColumns(10);
-		txtValorProduto.setBounds(336, 132, 122, 26);
+		txtValorProduto.setBounds(375, 114, 122, 26);
 		frame.getContentPane().add(txtValorProduto);
 		
 		JLabel lblValor = new JLabel("Valor");
-		lblValor.setBounds(281, 126, 37, 38);
+		lblValor.setBounds(311, 108, 37, 38);
 		frame.getContentPane().add(lblValor);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(473, 126, 37, 38);
+		lblData.setBounds(522, 108, 37, 38);
 		frame.getContentPane().add(lblData);
 		
 		txtDataVenda = new JTextField();
 		txtDataVenda.setColumns(10);
-		txtDataVenda.setBounds(528, 132, 122, 26);
+		txtDataVenda.setBounds(608, 114, 122, 26);
 		frame.getContentPane().add(txtDataVenda);
 		//Mostrando data atual
 		txtDataVenda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
@@ -254,48 +142,54 @@ public class TelaVendas {
 		
 		txtTotalVenda = new JTextField();
 		txtTotalVenda.setColumns(10);
-		txtTotalVenda.setBounds(142, 334, 122, 26);
+		txtTotalVenda.setBounds(608, 338, 122, 26);
 		frame.getContentPane().add(txtTotalVenda);
 		
 		JLabel lblTotalVenda = new JLabel("Total Venda");
-		lblTotalVenda.setBounds(34, 328, 93, 38);
+		lblTotalVenda.setBounds(637, 300, 93, 38);
 		frame.getContentPane().add(lblTotalVenda);
-		
-		JButton button_1 = new JButton("Buscar");
-		button_1.setBounds(615, 16, 115, 29);
-		frame.getContentPane().add(button_1);
-		
+			
 		txtCodVenda = new JTextField();
 		txtCodVenda.setColumns(10);
-		txtCodVenda.setBounds(345, 17, 258, 26);
+		txtCodVenda.setBounds(174, 17, 258, 26);
 		frame.getContentPane().add(txtCodVenda);
 		
-		JButton btnSomar = new JButton("somar");
-		btnSomar.addActionListener(new ActionListener() {
-				@SuppressWarnings("unused")
-				public void actionPerformed(ActionEvent e3) {
-				
-				int count= 0;
-				for (int i=0; i<=tabVendas.getRowCount()-1;i++) {
-				count+=Integer.parseInt(tabVendas.getValueAt(i, 4).toString());
+
+		Combo.addItem("contains");
+		Combo.addItem("equals");
+		Combo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (Combo.getSelectedIndex() == 0) {
+					System.out.println("contains");
+				}else {
+					System.out.println("aaaa");
 				}
-			
-				
-				  txtTotalVenda.setText(String.valueOf(count));
-			
-				
+
 			}
 		});
-		btnSomar.setBounds(142, 299, 115, 29);
-		frame.getContentPane().add(btnSomar);
+		Combo.setBounds(455, 16, 145, 29);
+		frame.getContentPane().add(Combo);
 		
 		
 		//botões
 		JButton btnVoltar = new JButton("Voltar");
 		actTelaPrincipal = new VoltarTelaPrincipal(this);
 		btnVoltar.addActionListener(actTelaPrincipal);
-		btnVoltar.setBounds(281, 337, 115, 29);
+		btnVoltar.setBounds(88, 337, 115, 29);
 		frame.getContentPane().add(btnVoltar);
+		
+		JButton btnGravarVenda = new JButton("Gravar");
+		actTelaVendas = new ActionGravarVenda(this);
+		btnGravarVenda.addActionListener(actTelaVendas);
+		btnGravarVenda.setBounds(478, 337, 115, 29);
+		frame.getContentPane().add(btnGravarVenda);
+		
+		JButton btnConsultarVendas = new JButton("Consultar");
+		actConsultarVenda = new ActionConsultarVenda(this);
+		btnConsultarVendas.addActionListener(actConsultarVenda);
+		btnConsultarVendas.setBounds(615, 16, 115, 29);
+		frame.getContentPane().add(btnConsultarVendas);
+		
 	}
 }
 	

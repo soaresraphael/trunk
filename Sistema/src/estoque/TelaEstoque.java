@@ -24,7 +24,7 @@ public class TelaEstoque {
 	public static  JTextField txtQtdProduto;
 	public static  JTextField txtValorProduto;
 	public static  JTextField txtDataEntradaEstoque;
-	public  JTextField txtConsulta;
+	public static  JTextField txtConsulta;
 	public static  JTextField txtDataSaidaEstoque;
 	public  JComboBox<String> Combo = new JComboBox<String>();
 	public JButton btnExcluir ;
