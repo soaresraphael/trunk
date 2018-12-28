@@ -1,4 +1,4 @@
-package Sistema;
+package sistema;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -77,7 +77,7 @@ public class login {
 						if (txtUser.getText().equals("x") &&
 								txtSenha.getText().equals("z")) {
 								
-								Principal window = new Principal();
+								TelaPrincipal window = new TelaPrincipal();
 								window.frame.setVisible(true);
 								frame.dispose();
 								

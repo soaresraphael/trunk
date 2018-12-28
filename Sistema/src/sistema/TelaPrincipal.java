@@ -1,4 +1,4 @@
-package Sistema;
+package sistema;
 
 import java.awt.EventQueue;
 
@@ -11,11 +11,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+
+import cliente.TelaCliente;
+import estoque.TelaEstoque;
+import vendas.TelaVendas;
+
 import java.awt.Button;
 
-public class Principal {
+public class TelaPrincipal {
 
-	JFrame frame;
+	public JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -24,7 +29,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal window = new Principal();
+					TelaPrincipal window = new TelaPrincipal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +41,7 @@ public class Principal {
 	/**
 	 * Create the application.
 	 */
-	public Principal() {
+	public TelaPrincipal() {
 		initialize();
 	}
 
@@ -56,7 +61,7 @@ public class Principal {
 		JButton btnEstoque = new JButton("Estoque");
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Estoque window = new Estoque();
+				TelaEstoque window = new TelaEstoque();
 				window.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -89,7 +94,7 @@ public class Principal {
 		JButton btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Cliente window = new Cliente();
+				TelaCliente window = new TelaCliente();
 				window.frame.setVisible(true);
 				frame.dispose();
 			}
@@ -100,7 +105,7 @@ public class Principal {
 		JButton btnVendas = new JButton("Vendas");
 		btnVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Vendas window = new Vendas();
+				TelaVendas window = new TelaVendas();
 				window.frame.setVisible(true);
 				frame.dispose();
 			}
