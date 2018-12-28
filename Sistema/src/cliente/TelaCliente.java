@@ -37,9 +37,9 @@ public class TelaCliente {
 	public JFrame frame;
 
 	public JTable tabCliente;
-	public JTextField txtTelCliente;
-	public JTextField txtNCliente;
-	public JFormattedTextField txtCpf;
+	public static JTextField txtTelCliente;
+	public static JTextField txtNCliente;
+	public static JFormattedTextField txtCpf;
 	public ActionListener actExcluir;
 	public ActionListener actPesquisaCliente;
 	public ActionListener actGravarCliente;

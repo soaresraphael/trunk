@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
 
+import sistema.LimparCampos;
+
 
 public class ActionGravarCliente implements ActionListener {
 	
@@ -25,31 +27,35 @@ public class ActionGravarCliente implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		//verifica se cpf já existe
-		File file = new File(cliente.txtCpf.getText()+".txt");
+		File file = new File(TelaCliente.txtCpf.getText()+".txt");
 		if(file.exists()){
 			JOptionPane.showMessageDialog(null,"CPF já existe!");
-			cliente.txtCpf.setText("");
-			cliente.txtNCliente.setText("");
-			cliente.txtTelCliente.setText("");
-			cliente.txtCpf.requestFocus();
+			
+			//chamar a classe limpar campos
+			LimparCampos limparcampos = new LimparCampos(cliente);
+			limparcampos.getClass();
+			
 		}
 		
 		// se não pode cadastrar novo 
 		else {	
 			try {		
-				FileWriter gravar = new FileWriter(cliente.txtCpf.getText()+".txt");
+				FileWriter gravar = new FileWriter(TelaCliente.txtCpf.getText()+".txt");
 				PrintWriter linha = new PrintWriter(gravar);			
-				linha.print(cliente.txtCpf.getText() + "/");
-				linha.print(cliente.txtNCliente.getText() + "/");
-				linha.print(cliente.txtTelCliente.getText());
+				linha.print(TelaCliente.txtCpf.getText() + "/");
+				linha.print(TelaCliente.txtNCliente.getText() + "/");
+				linha.print(TelaCliente.txtTelCliente.getText());
 				linha.flush();
 				linha.close();
 				gravar.close();
 				JOptionPane.showMessageDialog(null,"Salvo");
-				cliente.txtCpf.setText("");
-				cliente.txtNCliente.setText("");
-				cliente.txtTelCliente.setText("");
-				cliente.txtCpf.requestFocus();												
+				
+				//chamar a classe limpar campos
+				LimparCampos limparcampos = new LimparCampos(cliente);
+				limparcampos.getClass();
+
+
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

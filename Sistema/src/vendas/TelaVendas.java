@@ -1,28 +1,30 @@
 package vendas;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import java.awt.event.ActionEvent;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import sistema.VoltarTelaPrincipal;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class TelaVendas {
 
 	protected static final String Convert = null;
-	JFrame frame;
+	public JFrame frame;
 	private JTable tabVendas;
 	private JTextField txtCliente;
 	private JTextField txtProduto;
@@ -31,9 +33,7 @@ public class TelaVendas {
 	private JTextField txtDataVenda;
 	private JTextField txtTotalVenda;
 	private JTextField txtCodVenda;
-	
-	
-	public ActionListener actVoltarTelaPrincipal;
+	public ActionListener actTelaPrincipal;
 	
 
 	/**
@@ -171,17 +171,9 @@ public class TelaVendas {
 		scrollPane.setViewportView(tabVendas);
 		
 		txtCliente = new JTextField();
-		txtCliente.setBounds(174, 50, 346, 26);
+		txtCliente.setBounds(174, 50, 429, 26);
 		frame.getContentPane().add(txtCliente);
 		txtCliente.setColumns(10);
-		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnBuscar.setBounds(535, 49, 115, 29);
-		frame.getContentPane().add(btnBuscar);
 		
 		JButton btnGravarVenda = new JButton("Gravar");
 		btnGravarVenda.addActionListener(new ActionListener() {
@@ -225,13 +217,9 @@ public class TelaVendas {
 		btnGravarVenda.setBounds(424, 337, 115, 29);
 		frame.getContentPane().add(btnGravarVenda);
 		
-		JButton button = new JButton("Buscar");
-		button.setBounds(536, 82, 115, 29);
-		frame.getContentPane().add(button);
-		
 		txtProduto = new JTextField();
 		txtProduto.setColumns(10);
-		txtProduto.setBounds(174, 83, 346, 26);
+		txtProduto.setBounds(174, 83, 429, 26);
 		frame.getContentPane().add(txtProduto);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
@@ -274,12 +262,12 @@ public class TelaVendas {
 		frame.getContentPane().add(lblTotalVenda);
 		
 		JButton button_1 = new JButton("Buscar");
-		button_1.setBounds(535, 16, 115, 29);
+		button_1.setBounds(615, 16, 115, 29);
 		frame.getContentPane().add(button_1);
 		
 		txtCodVenda = new JTextField();
 		txtCodVenda.setColumns(10);
-		txtCodVenda.setBounds(345, 17, 175, 26);
+		txtCodVenda.setBounds(345, 17, 258, 26);
 		frame.getContentPane().add(txtCodVenda);
 		
 		JButton btnSomar = new JButton("somar");
@@ -301,21 +289,15 @@ public class TelaVendas {
 		btnSomar.setBounds(142, 299, 115, 29);
 		frame.getContentPane().add(btnSomar);
 		
+		
+		//botões
+		JButton btnVoltar = new JButton("Voltar");
+		actTelaPrincipal = new VoltarTelaPrincipal(this);
+		btnVoltar.addActionListener(actTelaPrincipal);
+		btnVoltar.setBounds(281, 337, 115, 29);
+		frame.getContentPane().add(btnVoltar);
 	}
-
-	protected int parseDouble(String string) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
-	
-	//botões
-	JButton btnVoltar = new JButton("Voltar");
-	actVoltarTelaPrincipal = new VoltarTelaPrincipal(this);
-	btnVoltar.addActionListener(actVoltarTelaPrincipal);
-	btnVoltar.setBounds(278, 356, 115, 29);
-	frame.getContentPane().add(btnVoltar);
-	
-	
 }
+	
+
+	
