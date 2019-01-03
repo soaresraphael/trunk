@@ -24,19 +24,22 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import cliente.ActionExcluirCliente;
+import sistema.LimparCampos;
 import sistema.TelaPrincipal;
 import sistema.VoltarTelaPrincipal;
 import cliente.ActionPesquisaCliente;
-
+import cliente.ActionAlterarCliente;
+import cliente.CliqueDuploMouse;
 
 @SuppressWarnings("unused")
 
 public class TelaCliente {
 
 	protected static final int Nome = 0;
+	private static final CliqueDuploMouse CliqueDuploMouse = null;
 	public JFrame frame;
 
-	public JTable tabCliente;
+	public static JTable tabCliente;
 	public static JTextField txtTelCliente;
 	public static JTextField txtNCliente;
 	public static JFormattedTextField txtCpf;
@@ -44,6 +47,7 @@ public class TelaCliente {
 	public ActionListener actPesquisaCliente;
 	public ActionListener actGravarCliente;
 	public ActionListener actVoltarTelaPrincipal;
+	public ActionListener actAlterarCliente;
 	
 	/**
 	 * Launch the application.
@@ -71,7 +75,6 @@ public class TelaCliente {
 		
 	}
 
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -91,28 +94,13 @@ public class TelaCliente {
 		scrollPane.setBounds(34, 185, 633, 123);
 		frame.getContentPane().add(scrollPane);
 
-
+		
 		tabCliente = new JTable();
-		tabCliente.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				//clique duplo
-				if(e.getClickCount() == MouseEvent.BUTTON1){
-			          			        
-				int linha = tabCliente.getSelectedRow();
-				//JOptionPane.showMessageDialog(null, "linha = "+linha);
-				txtCpf.setText(tabCliente.getValueAt(linha,0).toString());
-				txtNCliente.setText(tabCliente.getValueAt(linha,1).toString());
-				txtTelCliente.setText(tabCliente.getValueAt(linha,2).toString());
-				tabCliente.getSelectedRow();
-				txtCpf.requestFocus();												
 
-				}
-				
-			}
-		});
-
+		//clique duplo do mouse sobre dados para alteração
+		CliqueDuploMouse cdm = new CliqueDuploMouse(tabCliente);
+		cdm.getClass();	
+			
 		tabCliente.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -122,38 +110,7 @@ public class TelaCliente {
 				));
 		scrollPane.setViewportView(tabCliente);
 
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try {		
-					FileWriter gravar = new FileWriter(txtCpf.getText()+".txt");
-					PrintWriter linha = new PrintWriter(gravar);			
-					linha.print(txtCpf.getText() + "/");
-					linha.print(txtNCliente.getText() + "/");
-					linha.print(txtTelCliente.getText());
-					linha.flush();
-					linha.close();
-					gravar.close();
-					JOptionPane.showMessageDialog(null,"Alterado");
-					//cursor voltar piscando cpf
-					txtCpf.setText("");
-					txtNCliente.setText("");
-					txtTelCliente.setText("");
-					txtCpf.requestFocus();												
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-		});
-		
-		btnAlterar.setBounds(422, 324, 115, 29);
-		frame.getContentPane().add(btnAlterar);
-
-		
-		
+			
 		//formatar campo cpf
 		try{
             MaskFormatter msk = new MaskFormatter("###.###.###-##");
@@ -210,6 +167,11 @@ public class TelaCliente {
 		btnVoltar.setBounds(278, 356, 115, 29);
 		frame.getContentPane().add(btnVoltar);
 		
+		JButton btnAlterar = new JButton("Alterar");
+		actAlterarCliente = new ActionAlterarCliente(this);
+		btnAlterar.addActionListener(actAlterarCliente);
+		btnAlterar.setBounds(422, 324, 115, 29);
+		frame.getContentPane().add(btnAlterar);
 	}
-
+	
 }

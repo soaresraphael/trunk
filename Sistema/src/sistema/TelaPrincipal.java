@@ -93,7 +93,6 @@ public class TelaPrincipal {
 		btnEstoque.setBounds(37, 70, 88, 29);
 		frame.getContentPane().add(btnEstoque);
 		
-		
 		JButton btnVendas = new JButton("Vendas");
 		btnVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
