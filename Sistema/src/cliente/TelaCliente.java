@@ -27,9 +27,11 @@ import cliente.ActionExcluirCliente;
 import sistema.LimparCampos;
 import sistema.TelaPrincipal;
 import sistema.VoltarTelaPrincipal;
+import vendas.TelaVendas;
 import cliente.ActionPesquisaCliente;
 import cliente.ActionAlterarCliente;
 import cliente.CliqueDuploMouse;
+import javax.swing.JRadioButton;
 
 @SuppressWarnings("unused")
 
@@ -48,15 +50,16 @@ public class TelaCliente {
 	public ActionListener actGravarCliente;
 	public ActionListener actVoltarTelaPrincipal;
 	public ActionListener actAlterarCliente;
-	
+	protected TelaVendas cliente;
+
 	/**
 	 * Launch the application.
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
+
 				try {
 					TelaCliente cliente = new TelaCliente();
 					cliente.frame.setVisible(true);
@@ -72,15 +75,14 @@ public class TelaCliente {
 	 */
 	public TelaCliente() {
 		initialize();
-		
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-	
-		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 704, 457);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,13 +96,12 @@ public class TelaCliente {
 		scrollPane.setBounds(34, 185, 633, 123);
 		frame.getContentPane().add(scrollPane);
 
-		
 		tabCliente = new JTable();
 
 		//clique duplo do mouse sobre dados para alteração
 		CliqueDuploMouse cdm = new CliqueDuploMouse(tabCliente);
 
-			
+
 		tabCliente.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -110,15 +111,15 @@ public class TelaCliente {
 				));
 		scrollPane.setViewportView(tabCliente);
 
-			
+
 		//formatar campo cpf
 		try{
-            MaskFormatter msk = new MaskFormatter("###.###.###-##");
-            txtCpf =  new JFormattedTextField(msk);
-       		txtCpf.setColumns(10);
-    		txtCpf.setBounds(120, 53, 390, 26);
-    		frame.getContentPane().add(txtCpf);
-        }catch(Exception erro) { }
+			MaskFormatter msk = new MaskFormatter("###.###.###-##");
+			txtCpf =  new JFormattedTextField(msk);
+			txtCpf.setColumns(10);
+			txtCpf.setBounds(120, 53, 390, 26);
+			frame.getContentPane().add(txtCpf);
+		}catch(Exception erro) { }
 
 		txtTelCliente = new JTextField();
 		txtTelCliente.setColumns(10);
@@ -134,6 +135,8 @@ public class TelaCliente {
 		frame.getContentPane().add(lblTelefone);
 
 		txtNCliente = new JTextField();
+		txtNCliente.setEnabled(true);
+		txtNCliente.setEditable(false);
 		txtNCliente.setColumns(10);
 		txtNCliente.setBounds(120, 93, 390, 26);
 		frame.getContentPane().add(txtNCliente);
@@ -148,30 +151,40 @@ public class TelaCliente {
 		btnGravarCli.addActionListener(actGravarCliente);
 		btnGravarCli.setBounds(422, 356, 115, 29);
 		frame.getContentPane().add(btnGravarCli);
-		
+
 		JButton btnExcluir = new JButton("Excluir");
 		actExcluir = new ActionExcluirCliente(this);
 		btnExcluir.addActionListener(actExcluir);
 		btnExcluir.setBounds(552, 324, 115, 29);
 		frame.getContentPane().add(btnExcluir);
-		
+
 		JButton btnPesquisarCliente = new JButton("Pesquisar Cliente");
 		actPesquisaCliente = new ActionPesquisaCliente(this);
 		btnPesquisarCliente.addActionListener(actPesquisaCliente);
 		btnPesquisarCliente.setBounds(120, 16, 156, 29);
 		frame.getContentPane().add(btnPesquisarCliente);
-		
+
 		JButton btnVoltar = new JButton("Voltar");
 		actVoltarTelaPrincipal = new VoltarTelaPrincipal(this);
 		btnVoltar.addActionListener(actVoltarTelaPrincipal);
-		btnVoltar.setBounds(278, 356, 115, 29);
+		btnVoltar.setBounds(552, 356, 115, 29);
 		frame.getContentPane().add(btnVoltar);
-		
+
 		JButton btnAlterar = new JButton("Alterar");
 		actAlterarCliente = new ActionAlterarCliente(this);
 		btnAlterar.addActionListener(actAlterarCliente);
 		btnAlterar.setBounds(422, 324, 115, 29);
 		frame.getContentPane().add(btnAlterar);
+
+		JButton btnNovoCliente = new JButton("Novo Cliente");
+		btnNovoCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtNCliente.setEditable(true);
+				txtCpf.setText("");
+				txtCpf.requestFocus();
+			}
+		});
+		btnNovoCliente.setBounds(34, 324, 146, 29);
+		frame.getContentPane().add(btnNovoCliente);
 	}
-	
 }

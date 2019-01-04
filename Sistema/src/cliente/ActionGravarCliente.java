@@ -33,6 +33,8 @@ public class ActionGravarCliente implements ActionListener {
 			//chamar a classe limpar campos
 			LimparCampos limparcampos = new LimparCampos(cliente);
 			limparcampos.getClass();
+			
+			TelaCliente.txtNCliente.setEditable(false);
 
 		}
 
@@ -40,7 +42,7 @@ public class ActionGravarCliente implements ActionListener {
 		else {	
 			String nome = TelaCliente.txtNCliente.getText();
 			if (("").equals(nome)) {
-				JOptionPane.showMessageDialog(null,"Digite o Nome");
+				JOptionPane.showMessageDialog(null,"Preencha todos os Campos");
 			}
 			else{
 			try {		
@@ -57,6 +59,7 @@ public class ActionGravarCliente implements ActionListener {
 				//chamar a classe limpar campos
 				LimparCampos limparcampos = new LimparCampos(cliente);
 				limparcampos.getClass();
+				TelaCliente.txtNCliente.setEditable(false);
 
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
