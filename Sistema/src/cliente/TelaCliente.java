@@ -99,7 +99,7 @@ public class TelaCliente {
 
 		//clique duplo do mouse sobre dados para alteração
 		CliqueDuploMouse cdm = new CliqueDuploMouse(tabCliente);
-		cdm.getClass();	
+
 			
 		tabCliente.setModel(new DefaultTableModel(
 				new Object[][] {
