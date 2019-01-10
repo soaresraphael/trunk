@@ -1,5 +1,6 @@
 package vendas;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ public class TelaVendas {
 	protected static final String Convert = null;
 	public JFrame frame;
 	static JTable tabVendas;
+	public static  JTextField txtConsultaVendas;
 	public static JTextField txtCliente;
 	public static JTextField txtProduto;
 	public static JTextField txtQtdProduto;
@@ -33,6 +35,7 @@ public class TelaVendas {
 	public ActionListener actTelaVendas;
 	public ActionListener actConsultarVenda;
 	public static  JComboBox<String> Combo = new JComboBox<String>();
+
 	
 	/**
 	 * Launch the application.
@@ -151,7 +154,7 @@ public class TelaVendas {
 			
 		txtCodVenda = new JTextField();
 		txtCodVenda.setColumns(10);
-		txtCodVenda.setBounds(174, 17, 258, 26);
+		txtCodVenda.setBounds(174, 17, 115, 26);
 		frame.getContentPane().add(txtCodVenda);
 		
 
@@ -167,7 +170,7 @@ public class TelaVendas {
 
 			}
 		});
-		Combo.setBounds(455, 16, 145, 29);
+		Combo.setBounds(525, 16, 75, 29);
 		frame.getContentPane().add(Combo);
 		
 		
@@ -189,6 +192,16 @@ public class TelaVendas {
 		btnConsultarVendas.addActionListener(actConsultarVenda);
 		btnConsultarVendas.setBounds(615, 16, 115, 29);
 		frame.getContentPane().add(btnConsultarVendas);
+		
+		Component txtConsultaVenda = new JTextField();
+		((JTextField) txtConsultaVenda).setColumns(10);
+		txtConsultaVenda.setBounds(397, 17, 115, 26);
+		frame.getContentPane().add(txtConsultaVenda);
+		
+		
+		JLabel lblConsulta = new JLabel("Consulta");
+		lblConsulta.setBounds(308, 11, 93, 38);
+		frame.getContentPane().add(lblConsulta);
 		
 	}
 }
