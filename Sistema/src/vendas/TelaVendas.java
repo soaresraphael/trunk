@@ -35,6 +35,7 @@ public class TelaVendas {
 	public ActionListener actTelaVendas;
 	public ActionListener actConsultarVenda;
 	public static  JComboBox<String> Combo = new JComboBox<String>();
+	private JTextField txtPdvCodProd;
 
 	
 	/**
@@ -86,7 +87,7 @@ public class TelaVendas {
 		frame.getContentPane().add(lblCliente);
 		
 		JLabel lblProdutos = new JLabel("Produtos");
-		lblProdutos.setBounds(34, 79, 93, 38);
+		lblProdutos.setBounds(311, 77, 75, 38);
 		frame.getContentPane().add(lblProdutos);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -110,7 +111,7 @@ public class TelaVendas {
 	
 		txtProduto = new JTextField();
 		txtProduto.setColumns(10);
-		txtProduto.setBounds(174, 83, 556, 26);
+		txtProduto.setBounds(386, 83, 344, 26);
 		frame.getContentPane().add(txtProduto);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
@@ -124,7 +125,7 @@ public class TelaVendas {
 		
 		txtValorProduto = new JTextField();
 		txtValorProduto.setColumns(10);
-		txtValorProduto.setBounds(375, 114, 122, 26);
+		txtValorProduto.setBounds(385, 114, 146, 26);
 		frame.getContentPane().add(txtValorProduto);
 		
 		JLabel lblValor = new JLabel("Valor");
@@ -132,7 +133,7 @@ public class TelaVendas {
 		frame.getContentPane().add(lblValor);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(522, 108, 37, 38);
+		lblData.setBounds(556, 108, 37, 38);
 		frame.getContentPane().add(lblData);
 		
 		txtDataVenda = new JTextField();
@@ -198,10 +199,18 @@ public class TelaVendas {
 		txtConsultaVenda.setBounds(397, 17, 115, 26);
 		frame.getContentPane().add(txtConsultaVenda);
 		
-		
 		JLabel lblConsulta = new JLabel("Consulta");
 		lblConsulta.setBounds(308, 11, 93, 38);
 		frame.getContentPane().add(lblConsulta);
+		
+		txtPdvCodProd = new JTextField();
+		txtPdvCodProd.setColumns(10);
+		txtPdvCodProd.setBounds(174, 83, 122, 26);
+		frame.getContentPane().add(txtPdvCodProd);
+		
+		JLabel lblCodProduto = new JLabel("Cod. Produto");
+		lblCodProduto.setBounds(34, 77, 106, 38);
+		frame.getContentPane().add(lblCodProduto);
 		
 	}
 }

@@ -1,24 +1,25 @@
 package estoque;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import sistema.VoltarTelaPrincipal;
-
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+
+import sistema.VoltarTelaPrincipal;
 
 public class TelaEstoque {
 
 	public JFrame frame;
-	public  JTable tabEstoque;
+	public static  JTable tabEstoque;
 	public static  JTextField txtCodProduto;
 	public static  JTextField txtProduto;
 	public static  JTextField txtQtdProduto;
@@ -28,15 +29,15 @@ public class TelaEstoque {
 	public static  JTextField txtDataSaidaEstoque;
 	public  JComboBox<String> Combo = new JComboBox<String>();
 	public JButton btnExcluir ;
-	JButton btnAlterar = new JButton("Alterar");
 	public ActionListener actExcluirProduto;
 	public ActionListener actGravarProduto;
 	public ActionListener actVoltarTelaPrincipal;
 	public ActionListener actConsultarProduto;
 	public ActionListener actIncluirProduto;
-
-
-
+	public ActionListener actAlterarProduto;
+	public KeyListener actp;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +64,7 @@ public class TelaEstoque {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unused")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 696, 465);
@@ -76,7 +78,11 @@ public class TelaEstoque {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(19, 180, 640, 175);
 		frame.getContentPane().add(scrollPane);
+		
+		
+		tabEstoque = new JTable();
 
+	
 		tabEstoque = new JTable();
 		tabEstoque.setModel(new DefaultTableModel(
 				new Object[][] {
@@ -87,6 +93,8 @@ public class TelaEstoque {
 				));
 		scrollPane.setViewportView(tabEstoque);
 
+		//clique duplo do mouse sobre dados para alteração
+		CliqueProduto cp = new CliqueProduto(tabEstoque);
 
 		//		btnAlterar.setBounds(414, 326, 115, 29);
 		//		frame.getContentPane().add(btnAlterar);
@@ -136,6 +144,8 @@ public class TelaEstoque {
 		frame.getContentPane().add(txtDataEntradaEstoque);
 
 		txtConsulta = new JTextField();
+		actp = new ActionConsultarProduto(this);
+		txtConsulta.addKeyListener(actp);
 		txtConsulta.setColumns(10);
 		txtConsulta.setBounds(19, 17, 456, 26);
 		frame.getContentPane().add(txtConsulta);
@@ -162,7 +172,7 @@ public class TelaEstoque {
 
 			}
 		});
-		Combo.setBounds(19, 363, 145, 29);
+		Combo.setBounds(19, 363, 73, 29);
 		frame.getContentPane().add(Combo);
 
 
@@ -188,7 +198,7 @@ public class TelaEstoque {
 		JButton btnVoltar = new JButton("Voltar");
 		actVoltarTelaPrincipal = new VoltarTelaPrincipal(this);
 		btnVoltar.addActionListener(actVoltarTelaPrincipal);
-		btnVoltar.setBounds(179, 363, 115, 29);
+		btnVoltar.setBounds(201, 363, 93, 29);
 		frame.getContentPane().add(btnVoltar);
 
 		JButton btnConsultarEstoque = new JButton("Consultar Estoque");
@@ -196,6 +206,13 @@ public class TelaEstoque {
 		btnConsultarEstoque.addActionListener(actConsultarProduto);
 		btnConsultarEstoque.setBounds(490, 16, 169, 29);
 		frame.getContentPane().add(btnConsultarEstoque);
-
+		
+		
+		JButton btnAlterarP = new JButton("Alterar");
+		actAlterarProduto = new ActionAlterarProduto(this);
+		btnAlterarP.addActionListener(actAlterarProduto);
+		btnAlterarP.setBounds(105, 363, 88, 29);
+		frame.getContentPane().add(btnAlterarP);
+		
 	}
 }

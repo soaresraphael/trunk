@@ -49,7 +49,7 @@ public class TelaPrincipal {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblPrincipal = new JLabel("Principal");
-		lblPrincipal.setBounds(52, 30, 88, 38);
+		lblPrincipal.setBounds(41, 11, 88, 38);
 		frame.getContentPane().add(lblPrincipal);
 
 		JButton btnSair = new JButton("Sair");
@@ -68,7 +68,7 @@ public class TelaPrincipal {
 			}
 
 		});
-		btnSair.setBounds(37, 199, 88, 25);
+		btnSair.setBounds(437, 18, 88, 25);
 		frame.getContentPane().add(btnSair);
 		
 		JButton btnClientes = new JButton("Clientes");
@@ -79,7 +79,7 @@ public class TelaPrincipal {
 				frame.dispose();
 			}
 		});
-		btnClientes.setBounds(37, 115, 88, 29);
+		btnClientes.setBounds(231, 16, 88, 29);
 		frame.getContentPane().add(btnClientes);
 		
 		JButton btnEstoque = new JButton("Estoque");
@@ -90,7 +90,7 @@ public class TelaPrincipal {
 				frame.dispose();
 			}
 		});
-		btnEstoque.setBounds(37, 70, 88, 29);
+		btnEstoque.setBounds(128, 16, 88, 29);
 		frame.getContentPane().add(btnEstoque);
 		
 		JButton btnVendas = new JButton("Vendas");
@@ -101,7 +101,7 @@ public class TelaPrincipal {
 				frame.dispose();
 			}
 		});
-		btnVendas.setBounds(37, 154, 88, 29);
+		btnVendas.setBounds(334, 16, 88, 29);
 		frame.getContentPane().add(btnVendas);
 	}
 }
