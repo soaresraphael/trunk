@@ -95,6 +95,9 @@ public class TelaEstoque {
 
 		//clique duplo do mouse sobre dados para alteração
 		CliqueProduto cp = new CliqueProduto(tabEstoque);
+		
+		
+		
 
 		//		btnAlterar.setBounds(414, 326, 115, 29);
 		//		frame.getContentPane().add(btnAlterar);
@@ -115,7 +118,9 @@ public class TelaEstoque {
 		txtProduto.setColumns(10);
 		txtProduto.setBounds(281, 57, 378, 26);
 		frame.getContentPane().add(txtProduto);
-
+		//
+		CliqueAlterar ca = new CliqueAlterar();
+		
 		JLabel lblQuantidade = new JLabel("Quantidade");
 		lblQuantidade.setBounds(19, 89, 93, 38);
 		frame.getContentPane().add(lblQuantidade);
@@ -206,7 +211,6 @@ public class TelaEstoque {
 		btnConsultarEstoque.addActionListener(actConsultarProduto);
 		btnConsultarEstoque.setBounds(490, 16, 169, 29);
 		frame.getContentPane().add(btnConsultarEstoque);
-		
 		
 		JButton btnAlterarP = new JButton("Alterar");
 		actAlterarProduto = new ActionAlterarProduto(this);

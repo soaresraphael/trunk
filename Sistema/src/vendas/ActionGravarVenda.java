@@ -14,7 +14,6 @@ import vendas.TelaVendas;
 
 public class ActionGravarVenda implements ActionListener {
 
-
 	private TelaVendas vendas;
 
 	public ActionGravarVenda (TelaVendas vendas){
@@ -27,7 +26,6 @@ public class ActionGravarVenda implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
 
 		BufferedWriter pv = null;
 
@@ -64,7 +62,6 @@ public class ActionGravarVenda implements ActionListener {
 				String Quantidade = TelaVendas.txtQtdProduto.getText().trim();
 				String Valor = TelaVendas.txtValorProduto.getText().trim();
 				String DataVenda = TelaVendas.txtDataVenda.getText().trim();
-
 
 				DefaultTableModel addV = (DefaultTableModel) TelaVendas.tabVendas.getModel();
 				addV.addRow(new String[] {CodVenda, Cliente, Produto, Quantidade, Valor, DataVenda});

@@ -66,8 +66,8 @@ public class ActionGravarProduto implements ActionListener {
 			//chamar a classe limpar campos
 			LimparCampos limparcampos = new LimparCampos(estoque);
 			limparcampos.getClass();
+			TelaEstoque.txtCodProduto.setEditable(true);
 
-			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally { // always close the file

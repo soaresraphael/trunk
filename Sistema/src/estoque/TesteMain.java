@@ -16,18 +16,23 @@ public class TesteMain {
 		OutputStreamWriter chars = new OutputStreamWriter(bytes);
 		BufferedWriter strings = new BufferedWriter(chars);
 		
+		@SuppressWarnings("resource")
 		BufferedReader reader = new BufferedReader(new FileReader(  
 				"saida.txt"));
 		
-		String line = "" ;
+		
+		String line = "";
 		while ((line = reader.readLine())!= null) {
 			
-			if (line.contains("amarelo")) {
-				chars.write("preto");
+			if (line.contains("1")) {
+				//chars.write("\r\n\tttttttttttttttttt");
+				line = line.replace("1","888888" );
 			}
-			
+			strings.write(line);
+
 		}
-		
+		  
+		reader.close();
 		strings.close();
 		
 	}

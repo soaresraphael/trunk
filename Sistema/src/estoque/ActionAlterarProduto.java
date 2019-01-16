@@ -9,10 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import estoque.TelaEstoque;
+import javax.swing.JOptionPane;
+
+import sistema.LimparCampos;
 
 public class ActionAlterarProduto implements ActionListener {
-	@SuppressWarnings("unused")
 	private TelaEstoque estoque;
 
 	public ActionAlterarProduto (TelaEstoque estoque){
@@ -20,11 +21,14 @@ public class ActionAlterarProduto implements ActionListener {
 		this.estoque = estoque;
 	}
 
-	private ActionAlterarProduto() {
+	ActionAlterarProduto() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+		TelaEstoque.txtCodProduto.setEditable(true);
+		TelaEstoque.txtProduto.setEditable(true);
 
 		try {
 
@@ -36,14 +40,26 @@ public class ActionAlterarProduto implements ActionListener {
 
 			String  nome;
 			while ((nome = reader.readLine()) != null) {
-				if (nome.contains(TelaEstoque.txtConsulta.getText())) {
-					nome = nome.replace(TelaEstoque.txtConsulta.getText(), "TROCOU");
+				if (nome.contains(TelaEstoque.txtProduto.getText())) {
+					String showInputDialog = JOptionPane.showInputDialog(null, "Alteração Dados" , "", 1);
+					System.out.println(showInputDialog);
+					nome = nome.replace(TelaEstoque.txtProduto.getText(), showInputDialog);
 				}
+//				else if (nome.contains(TelaEstoque.txtValorProduto.getText())){
+//					String showInputDialog = JOptionPane.showInputDialog(null, "Alteração Dados" , "", 1);
+//					System.out.println(showInputDialog);
+//					nome = nome.replace(TelaEstoque.txtValorProduto.getText(), showInputDialog);
+//				}
+				
 				writer.write(nome + "\n");
 			}
 
 			writer.close();     
 			reader.close();
+			
+			LimparCampos limparcampos = new LimparCampos(estoque);
+			limparcampos.getClass();
+		
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
