@@ -67,8 +67,7 @@ public class ActionGravarVenda implements ActionListener {
 				addV.addRow(new String[] {CodVenda, Cliente, Produto, Quantidade, Valor, DataVenda});
 
 				//chamar a classe limpar campos
-				LimparCampos limparcampos = new LimparCampos(vendas);
-				limparcampos.getClass();
+				new LimparCampos(vendas);
 
 				//somar total da venda conforme for add produtos
 				int count= 0;

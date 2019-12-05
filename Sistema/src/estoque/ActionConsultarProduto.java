@@ -15,11 +15,8 @@ import sistema.LimparCampos;
 
 public class ActionConsultarProduto implements ActionListener, KeyListener{
 	
-	//chamar a classe limpar campos
-	public void MetodoLimpar() {
-		LimparCampos limparcampos = new LimparCampos(estoque);
-		limparcampos.getClass();
-	}
+	
+	
 
 	private TelaEstoque estoque;
 
@@ -88,11 +85,11 @@ public class ActionConsultarProduto implements ActionListener, KeyListener{
 						}				
 					}
 				}
-				MetodoLimpar();
+				//chamar a classe limpar campos
+				new LimparCampos(estoque);
 
 			} catch (IOException e1 ) {  
 				JOptionPane.showMessageDialog(null, "Não Cadastrado");
-				MetodoLimpar();
 				e1.printStackTrace();  
 			}
 

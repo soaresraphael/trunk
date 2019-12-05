@@ -52,6 +52,31 @@ public class ActionGravarProduto implements ActionListener {
 			keySet.put("Data de Entrada", produto.getDataentrada());
 			keySet.put("Data de Saida", produto.getDatasaida());
 		
+			
+			
+			
+			
+			
+			//serializado
+//			Map<String,Produto> keySet; 
+//
+//			BufferedWriter bw = null;
+//
+//			try {
+//				keySet = new HashMap<String,Produto>();
+//				bw = new BufferedWriter(new FileWriter("estoque.txt", true));
+//
+//				Produto produto = new Produto();
+
+			//keySet.put(produto.getCodProduto(), produto);
+			
+			
+			
+			
+			
+			
+			
+			
 //			Iterator<String> iterator = keySet.keySet().iterator();
 //			while(iterator.hasNext()) {
 //				iterator.next();

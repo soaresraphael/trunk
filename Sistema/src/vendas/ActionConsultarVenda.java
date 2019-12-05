@@ -65,9 +65,7 @@ public class ActionConsultarVenda implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Não Cadastrado");
 				
 					//chamar a classe limpar campos
-					LimparCampos limparcampos = new LimparCampos(vendas);
-					limparcampos.getClass();
-	
+					new LimparCampos(vendas);	
 
 				}
 

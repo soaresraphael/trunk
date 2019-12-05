@@ -4,73 +4,85 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 
 public class ActionExcluirProduto implements ActionListener {
-	
+	@SuppressWarnings("unused")
 	private TelaEstoque estoque;
 
 	public ActionExcluirProduto (TelaEstoque estoque){
 		this();
 		this.estoque = estoque;
 	}
-	
-	public ActionExcluirProduto() {
+		
+		public ActionExcluirProduto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public void actionPerformed(ActionEvent arg0) {
 		
-			//var SL: TStringList;
-			//begin
-			//SL := TStringList.Create;
-	
-			try{
-
+		public void actionPerformed(ActionEvent e) {
+		
+			try {
+					OutputStream bytes = new FileOutputStream("estoque.txt", true);
+					OutputStreamWriter chars = new OutputStreamWriter(bytes);
+					BufferedWriter strings = new BufferedWriter(chars);
+					
+					BufferedReader reader = new BufferedReader(new FileReader(  
+							"estoque.txt"));
+					
 				
-				int linha = TelaEstoque.tabEstoque.getSelectedRow();
-				
-				TelaEstoque.txtCodProduto.setText(TelaEstoque.tabEstoque.(linha,0).toString());
-
-				
-//				FileReader fr = new FileReader("estoque.txt");
-//				fr.
-//			    fr.Delete(0); // deleta a primeira linha
-//			    fr.SaveTofile("estoque.txt");
-//			  
-				
-				
-				
-				
-				
-//	            FileReader fr = new FileReader("cliente.txt");
-//	            @SuppressWarnings("resource")
-//				BufferedReader br = new BufferedReader(fr);
-//	            
-//	            String str;
-//	            ArrayList<String> a = new ArrayList<>();
-//	            
-//	    		BufferedWriter al = null;
-//
-//	            while((str = br.readLine()) != null){
-//	            	    
-//	            		a.add(str);
-//	            	    al = new BufferedWriter(new FileWriter("saida.txt", true));
-//			 
-//			            if(!str.equals(estoque.txtConsulta.getText())) {
-//			            	al.write(str);
-//				            al.newLine();
-//				            al.flush();
-//				        	}
-//	            	} 
-	        }
-	        catch(IOException e){
-	        System.out.println("não encontrado!");
-			}
+					
+					String line = "";
+					while ((line = reader.readLine())!= null) {
+						
+						if (line.contains(TelaEstoque.txtCodProduto.getText())) {
+							//chars.write("\r\n\tttttttttttttttttt");
+							line = line.replace(TelaEstoque.txtCodProduto.getText(),"\r\n" );
+						}
+						strings.write(line+"\r\n");
+											  
+					reader.close();
+					strings.close();
+					}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}finally {}
+			
 		}
-	}
+}
+
+
+		
+//		OutputStream bytes = new FileOutputStream("saida.txt", true);
+//		OutputStreamWriter chars = new OutputStreamWriter(bytes);
+//		BufferedWriter strings = new BufferedWriter(chars);
+//		
+//		@SuppressWarnings("resource")
+//		BufferedReader reader = new BufferedReader(new FileReader(  
+//				"saida.txt"));
+//		
+//		
+//		String line = "";
+//		while ((line = reader.readLine())!= null) {
+//			
+//			if (line.contains("1")) {
+//				//chars.write("\r\n\tttttttttttttttttt");
+//				line = line.replace("1","\r\n" );
+//				
+//			}
+//			strings.write(line);
+//
+//		}
+//		  
+//		reader.close();
+//		strings.close();
+		
+
+	
 

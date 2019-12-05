@@ -24,9 +24,7 @@ public class CliqueProduto  {
 					int linha = TelaEstoque.tabEstoque.getSelectedRow();
 					//JOptionPane.showMessageDialog(null, "linha = "+linha);				
 	
-					//TelaEstoque.txtCodProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha,0).toString());
-
-					TelaEstoque.txtCodProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha, 0).toString());
+					TelaEstoque.txtCodProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha,0).toString());
 					TelaEstoque.txtProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha,1).toString());
 					TelaEstoque.txtQtdProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha,2).toString());
 					TelaEstoque.txtValorProduto.setText(TelaEstoque.tabEstoque.getValueAt(linha,3).toString());

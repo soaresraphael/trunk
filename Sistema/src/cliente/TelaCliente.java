@@ -21,6 +21,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI.InternalFrameLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -34,18 +37,18 @@ import cliente.ActionAlterarCliente;
 import cliente.CliqueDuploMouse;
 import javax.swing.JRadioButton;
 
-@SuppressWarnings("unused")
+public class TelaCliente {
 
-public class TelaCliente{
-
+	
+	
 	protected static final int Nome = 0;
 	private static final CliqueDuploMouse CliqueDuploMouse = null;
 	public JFrame frame;
 
 	public static JTable tabCliente;
-	public static JTextField txtTelCliente;
-	public static JTextField txtNCliente;
-	public static JFormattedTextField txtCpf;
+	public static  JTextField txtTelCliente;
+	public static  JTextField txtNCliente;
+	public static  JFormattedTextField txtCpf;
 	public ActionListener actExcluir;
 	public ActionListener actPesquisaCliente;
 	public ActionListener actGravarCliente;
@@ -76,6 +79,7 @@ public class TelaCliente{
 	 */
 	public TelaCliente() {
 		initialize();
+
 
 	}
 
@@ -187,5 +191,12 @@ public class TelaCliente{
 		});
 		btnNovoCliente.setBounds(34, 324, 146, 29);
 		frame.getContentPane().add(btnNovoCliente);
+	}
+
+	
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 }
