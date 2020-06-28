@@ -39,8 +39,8 @@
     				<p:dataTable var="customer" value="#{findCustomerView.customers}" widgetVar="customerTable"
                  		emptyMessage="Cliente não encontrado" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="10">
   
-				        <p:column filterBy="#{customer.id}" headerText="Id"  filterMatchMode="contains" width="10%" filterMaxLength="3">
-				            <h:outputText value="#{customer.id}" />
+				        <p:column filterBy="#{customer.customerId}" headerText="Id"  filterMatchMode="contains" width="10%" filterMaxLength="3">
+				            <h:outputText value="#{customer.customerId}" />
 				        </p:column>
  
 				        <p:column filterBy="#{customer.name}" headerText="Nome" filterMatchMode="contains" filterMaxLength="50">

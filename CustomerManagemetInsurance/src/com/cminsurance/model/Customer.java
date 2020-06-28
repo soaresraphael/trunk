@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="customer")
-public class CustomerVO {
+public class Customer {
 	@Id
 	@GeneratedValue
 	private long customerId;
@@ -19,17 +19,19 @@ public class CustomerVO {
 	private String address;
 	private String addressComplement;
 	private String zipCode;
+	private String district;
 	private String city;
 	private String state;
 	private String email;
 	private String cpf;
 	private String document;
 	private String birthDate;
-	//private List<String> telephones;
+	@OneToMany(mappedBy="customer", targetEntity=EnsurancePolicy.class, fetch = FetchType.LAZY)
+	private List<Telephone> telephones;
 	@OneToMany(mappedBy="customer", targetEntity=EnsurancePolicy.class, fetch = FetchType.LAZY)
 	private List<EnsurancePolicy> ensurancePolicies;
 	
-	public CustomerVO() {
+	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -121,14 +123,14 @@ public class CustomerVO {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-	/*
-	public List<String> getTelephones() {
+	
+	public List<Telephone> getTelephones() {
 		return telephones;
 	}
 
-	public void setTelephones(List<String> telephones) {
+	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
-	}*/
+	}
 
 	public List<EnsurancePolicy> getEnsurancePolicies() {
 		return ensurancePolicies;
@@ -137,6 +139,13 @@ public class CustomerVO {
 	public void setEnsurancePolicies(List<EnsurancePolicy> ensurancePolicies) {
 		this.ensurancePolicies = ensurancePolicies;
 	}
-	
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import com.cminsurance.model.CustomerVO;
+import com.cminsurance.model.Customer;
 
 /**
  * @author raphaelsoares
@@ -19,12 +19,12 @@ import com.cminsurance.model.CustomerVO;
 @ApplicationScoped
 public class FindCustomersService {
 
-	public List<CustomerVO> createCustomers() {
-		List<CustomerVO> list = new ArrayList<CustomerVO>();
+	public List<Customer> createCustomers() {
+		List<Customer> list = new ArrayList<Customer>();
 		long id = 1l;
 		
 		for (int i=0; i<50; i++) {
-			CustomerVO customer = new CustomerVO();
+			Customer customer = new Customer();
 			customer.setAddress("Rua Werner Goldberg, 157");
 			customer.setAddressComplement("Apto 216A");
 			customer.setBirthDate("23/03/1985");
@@ -42,8 +42,8 @@ public class FindCustomersService {
 		return list;
 	}
 
-	public List<CustomerVO> createCustomers(String name, String cpfCnpj) {
-		List<CustomerVO> list = new ArrayList<CustomerVO>();
+	public List<Customer> createCustomers(String name, String cpfCnpj) {
+		List<Customer> list = new ArrayList<Customer>();
 		long id = 3l;
 		String customerName = "Raphael Antenor Soares";
 		String cpf = "012.345.678-90";
@@ -55,7 +55,7 @@ public class FindCustomersService {
 			cpf = cpfCnpj;
 		}
 		
-		CustomerVO customer = new CustomerVO();
+		Customer customer = new Customer();
 		customer.setAddress("Rua Werner Goldberg, 157");
 		customer.setAddressComplement("Apto 216A");
 		customer.setBirthDate("23/03/1985");

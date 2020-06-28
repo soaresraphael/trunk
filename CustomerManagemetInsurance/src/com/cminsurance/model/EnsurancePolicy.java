@@ -28,7 +28,7 @@ public class EnsurancePolicy {
 	    
 	    @ManyToOne
 	    @JoinColumn(name="id")
-		private CustomerVO customer;
+		private Customer customer;
 	     
 	    public EnsurancePolicy(String name, String size, String type) {
 	        this.name = name;
@@ -68,11 +68,11 @@ public class EnsurancePolicy {
 			this.type = type;
 		}
 
-		public CustomerVO getCustomer() {
+		public Customer getCustomer() {
 			return customer;
 		}
 
-		public void setCustomer(CustomerVO customer) {
+		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
 	    

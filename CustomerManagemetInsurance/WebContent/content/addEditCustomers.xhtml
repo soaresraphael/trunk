@@ -18,50 +18,82 @@
     					<p:outputLabel value="Nome:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="50" />
+    					<p:inputText size="50" value="#{addEditCustomerView.customer.name}"/>
     				</h:panelGroup>
     				<h:panelGroup>
     				</h:panelGroup>
     				<h:panelGroup>
     				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="Data de Nascimento:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="10" value="#{addEditCustomerView.customer.birthDate}"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="RG:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="10" value="#{addEditCustomerView.customer.document}"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:outputLabel value="CPF/CNPJ:"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="20" value="#{addEditCustomerView.customer.cpf}"/>
+    				</h:panelGroup>
+    				
+    				<h:panelGroup>
+    					<p:outputLabel value="CEP"/>
+    					
+    				</h:panelGroup>
+    				<h:panelGroup>
+    					<p:inputText size="7" value="#{addEditCustomerView.customer.zipCode}"/>
+    					<p:commandLink value="  Buscar"/>
+    				</h:panelGroup>
+    				
     				
     				<h:panelGroup>
     					<p:outputLabel value="Endereço:"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="50" />
+    					<p:inputText size="50" value="#{addEditCustomerView.customer.address}"/>
     				</h:panelGroup>
     				<h:panelGroup>
     					<p:outputLabel value="Complemento"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="20" />
+    					<p:inputText size="20" value="#{addEditCustomerView.customer.addressComplement}"/>
     				</h:panelGroup>
     				
-    				<h:panelGroup>
-    					<p:outputLabel value="CEP"/>
-    				</h:panelGroup>
-    				<h:panelGroup>
-    					<p:inputText size="7" />
-    				</h:panelGroup>
     				<h:panelGroup>
     					<p:outputLabel value="Bairro"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="20" />
+    					<p:inputText size="50" value="#{addEditCustomerView.customer.district}"/>
+    				</h:panelGroup>
+    				<h:panelGroup>
+    				</h:panelGroup>
+    				<h:panelGroup>
     				</h:panelGroup>
     				
     				<h:panelGroup>
     					<p:outputLabel value="Cidade"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="20" />
+    					<p:inputText size="20" value="#{addEditCustomerView.customer.city}"/>
     				</h:panelGroup>
     				<h:panelGroup>
     					<p:outputLabel value="Estado"/>
     				</h:panelGroup>
     				<h:panelGroup>
-    					<p:inputText size="2" />
+    					<p:inputText size="2" value="#{addEditCustomerView.customer.state}"/>
     				</h:panelGroup>
     				
     			</h:panelGrid >
@@ -104,7 +136,7 @@
     			<p:separator />
     			
     			<h:panelGrid columns="2" style="padding-top:10px">
-    				<p:commandButton value="Salvar" actionListener="#{addEditCustomerView.teste}"/>
+    				<p:commandButton value="Salvar" actionListener="#{addEditCustomerView.insertCustomer}"/>
     				<p:commandButton value="Cancelar"/>
     			</h:panelGrid>
     			</h:form>

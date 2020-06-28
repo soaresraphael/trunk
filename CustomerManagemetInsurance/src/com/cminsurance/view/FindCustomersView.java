@@ -3,6 +3,7 @@
  */
 package com.cminsurance.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,7 +13,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
-import com.cminsurance.model.CustomerVO;
+import com.cminsurance.controller.DBController;
+import com.cminsurance.model.Customer;
 import com.cminsurance.services.FindCustomersService;
 
 
@@ -24,16 +26,18 @@ import com.cminsurance.services.FindCustomersService;
 @SessionScoped
 public class FindCustomersView extends DefaultView{
 	
-	List<CustomerVO> customers;
-	List<CustomerVO> filteredCustomers;
+	List<Customer> customers;
+	List<Customer> filteredCustomers;
 	@ManagedProperty("#{customerService}")
 	FindCustomersService service;
 	String name;
 	String cpfCnpj;
+	DBController dbController;
 	private boolean renderTable;
 	
 	public FindCustomersView() {
 		renderTable = false;
+		dbController = new DBController();
 	}
 	
 	@PostConstruct
@@ -55,11 +59,12 @@ public class FindCustomersView extends DefaultView{
     }
 	
 	public void findCustomers(ActionEvent event) {
-		renderTable = true;
+		customers.clear();
 		if(name.isEmpty() && cpfCnpj.isEmpty()) {
-			customers = service.createCustomers();
+			customers = dbController.searchAllCustomers();
+			renderTable = true;
 		} else {
-			customers = service.createCustomers(name, cpfCnpj);
+	
 		}
 	}
 	
@@ -67,19 +72,19 @@ public class FindCustomersView extends DefaultView{
 		return "detailCustomer";
 	}
 
-	public List<CustomerVO> getCustomers() {
+	public List<Customer> getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(List<CustomerVO> customers) {
+	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
 	}
 
-	public List<CustomerVO> getFilteredCustomers() {
+	public List<Customer> getFilteredCustomers() {
 		return filteredCustomers;
 	}
 
-	public void setFilteredCustomers(List<CustomerVO> filteredCustomers) {
+	public void setFilteredCustomers(List<Customer> filteredCustomers) {
 		this.filteredCustomers = filteredCustomers;
 	}
 

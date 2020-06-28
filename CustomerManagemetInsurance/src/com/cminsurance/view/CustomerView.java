@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.TreeNode;
 
-import com.cminsurance.model.CustomerVO;
+import com.cminsurance.model.Customer;
 import com.cminsurance.model.EnsurancePolicy;
 import com.cminsurance.services.EnsurancePoliciesService;
 
@@ -23,23 +23,23 @@ import com.cminsurance.services.EnsurancePoliciesService;
 @SessionScoped
 public class CustomerView extends DefaultView{
 	
-	private CustomerVO customer;
+	private Customer customer;
 	private TreeNode policiesTree;
 	@ManagedProperty("#{ensurancePoliciesService}")
 	private EnsurancePoliciesService service;
 	
 	public CustomerView() {
-		customer = new CustomerVO();
+		customer = new Customer();
 		customer.setEnsurancePolicies(new ArrayList<EnsurancePolicy>());
 		service = new EnsurancePoliciesService();
 		policiesTree = service.createDocuments();		
 	}
 
-	public CustomerVO getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(CustomerVO customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
